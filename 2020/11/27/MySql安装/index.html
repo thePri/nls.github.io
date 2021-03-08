@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    MySql安装 |  zelong
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="zelong" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-MySql安装"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  MySql安装
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/11/27/MySql%E5%AE%89%E8%A3%85/" class="article-date">
+  <time datetime="2020-11-27T03:04:23.000Z" itemprop="datePublished">2020-11-27</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Mysql/">Mysql</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">8 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a href="https://www.mysql.com/" target="_blank" rel="noopener">官网地址</a>     <a href="https://cpv2.mairuan.com/formysql.com/trial/navicat_premium_trial_64.exe" target="_blank" rel="noopener">navicat下载</a></p>
+<h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><ol>
+<li><p>访问官网翻到最下面，在DOWNLOADS里点击MySQL Community Server(社区版本)</p>
+<p><img src="https://pic.downk.cc/item/5fc0b41d15e77190845f1820.png" alt="image-20201127111330924"></p>
+<a id="more"></a>
+</li>
+<li><p>选择下载页面，选择windows系统、根据电脑位数选择（32位/64位），点击Download</p>
+<p><img src="https://pic.downk.cc/item/5fc0b43a15e77190845f2b21.png" alt="image-20201127111807790"></p>
+</li>
+<li><p>不用登录，直接下载</p>
+<p><img src="https://pic.downk.cc/item/5fc0b47c15e77190845f4108.png" alt="image-20201127111931703"></p>
+</li>
+</ol>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><ol start="4">
+<li><p>下载完成后将压缩包解压到一个新的文件夹下。</p>
+<p>mysql安装分为两种，一种是msi格式的，一种是zip格式，这里使用zip格式，解压后会得到一个文件夹。解压后进行一下配置就可以使用了</p>
+</li>
+<li><p>配置环境变量，解压后的文件夹下会有一个bin目录，将这个目录配置到环境变量里</p>
+<p>右键我的电脑–&gt;属性–&gt;高级–&gt;环境变量</p>
+<p>在系统变量下找到Path选中编辑，完成后点击确定。（注意：不要更改或者删除原有配置，win7系统编辑时在字符串最后要加英文的分号）</p>
+<p>win7:</p>
+<p><img src="https://pic.downk.cc/item/5fc0b4a015e77190845f4db5.png" alt="image-20201127113710367"></p>
+<p>win10:</p>
+<p><img src="https://pic.downk.cc/item/5fc0b4bb15e77190845f59cd.png" alt="image-20201127113449195"></p>
+</li>
+<li><p>因为在最新版本中的zip中没有my.ini文件，需要自己新建一个my.ini文件,以下内容根据自己的安装路径。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="attr">port</span>  = <span class="number">3306</span></span><br><span class="line"><span class="comment"># 设置mysql的安装目录</span></span><br><span class="line"><span class="attr">basedir</span>=D:\\Application\\MySQL\\mysql-<span class="number">8.0</span>.<span class="number">22</span>-winx64</span><br><span class="line"><span class="comment"># 设置mysql数据库的数据的存放目录，必须是data，或者是\\xxx-data</span></span><br><span class="line"><span class="attr">datadir</span>=D:\\Application\\MySQL\\mysql-<span class="number">8.0</span>.<span class="number">22</span>-winx64\\data</span><br><span class="line"><span class="comment">#innodb_log_arch_dir 默认datadir</span></span><br><span class="line"><span class="comment">#innodb_log_group_home_dir  默认datadir</span></span><br><span class="line"><span class="comment"># 设置mysql服务器的字符集，默认编码</span></span><br><span class="line"><span class="attr">loose-character-set-server</span>=utf8</span><br><span class="line"></span><br><span class="line"><span class="comment">#连接数的操作系统监听队列数量，如果经常出现“拒绝连接”错误可适当增加此值</span></span><br><span class="line"><span class="attr">back_log</span> = <span class="number">50</span></span><br><span class="line"><span class="comment">#不使用接听TCP / IP端口方法，mysqld通过命名管道连接</span></span><br><span class="line"><span class="comment">#skip-networking</span></span><br><span class="line"><span class="comment"># 最大连接数量</span></span><br><span class="line"><span class="attr">max_connections</span> = <span class="number">100</span></span><br><span class="line"><span class="comment">#打开表的线程数量限定，最大4096，除非用mysqld_safe打开限制</span></span><br><span class="line"><span class="attr">table_open_cache</span> = <span class="number">2048</span></span><br><span class="line"><span class="comment">#MySql 服务接收针对每个进程最大查询包大小</span></span><br><span class="line"><span class="attr">max_allowed_packet</span> = <span class="number">16</span>M</span><br><span class="line"><span class="comment">#作用于SQL查询单笔处理使用的内存缓存，如果一笔操作的二进制数据超过了限定大小，将会在磁盘上开辟空间处理，一般设为 1-2M即可，默认1M</span></span><br><span class="line"><span class="attr">binlog_cache_size</span> = <span class="number">2</span>M</span><br><span class="line"><span class="comment">#单个内存表的最大值限定</span></span><br><span class="line"><span class="attr">max_heap_table_size</span> = <span class="number">64</span>M</span><br><span class="line"><span class="comment">#为每个线程分配的排序缓冲大小</span></span><br><span class="line"><span class="attr">sort_buffer_size</span> = <span class="number">8</span>M</span><br><span class="line"><span class="comment">#join 连表操作的缓冲大小,根据实际业务来设置，默认8M</span></span><br><span class="line"><span class="attr">join_buffer_size</span> = <span class="number">32</span>M</span><br><span class="line"><span class="comment">#操作多少个离开连接的线程的缓存</span></span><br><span class="line"><span class="attr">thread_cache_size</span> = <span class="number">8</span></span><br><span class="line"><span class="comment">#设置加全文检索中的最小单词长度。</span></span><br><span class="line"><span class="comment">#ft_min_word_len = 4</span></span><br><span class="line"><span class="comment">#CREATE TABLE 语句的默认表类型，如果不自己指定类型，则使用下行的类型</span></span><br><span class="line"><span class="attr">default-storage-engine</span> = InnoDB</span><br><span class="line"><span class="comment">#线程堆栈大小，mysql说它自己用的堆栈大小不超过64K。这个值可适当设高一点（在RCA的项目中都是共用同一个数据库连接的），默认192K</span></span><br><span class="line"><span class="attr">thread_stack</span> = <span class="number">800</span>K</span><br><span class="line"><span class="comment">#设置事务处理的级别,默认 REPEATABLE-READ，一般用它就即可，以下二行按顺序对应，</span></span><br><span class="line"><span class="comment">#可读写未提交的数据，创建未提交的数据副本读写，未提交之前可读不可写，只允许串行序列招行事务。</span></span><br><span class="line"><span class="comment"># READ-UNCOMMITTED, READ-COMMITTED, REPEATABLE-READ, SERIALIZABLE</span></span><br><span class="line"><span class="attr">transaction_isolation</span> = REPEATABLE-READ</span><br><span class="line"><span class="comment">#单一内存临时表在内存中的大小，超过此值自动转换到磁盘操作</span></span><br><span class="line"><span class="attr">tmp_table_size</span> = <span class="number">64</span>M</span><br><span class="line"><span class="comment">#启动二进制日志功能，可通过它实现时间点恢复最新的备份</span></span><br><span class="line"><span class="comment">#log-bin=mysql-bin</span></span><br><span class="line"><span class="comment">#二进制日志格式，对就上一条，-建议混合格式</span></span><br><span class="line"><span class="comment">#binlog_format=mixed</span></span><br><span class="line"><span class="comment">#转换查询为缓慢查询</span></span><br><span class="line">slow_query_log</span><br><span class="line"><span class="comment">#对应上一条，如果一个查询超过了下条设定的时间则执行上一条。</span></span><br><span class="line"><span class="attr">long_query_time</span> = <span class="number">2</span></span><br><span class="line"><span class="comment">#自定义主机ID识别符，用于主从或多服务器之间识别，为 一个 int 类型</span></span><br><span class="line"><span class="attr">server-id</span> = <span class="number">1</span></span><br><span class="line"><span class="comment">#一般用来缓存MyISAM表的主键，也用于临时的磁盘表缓存主键，上面多次出现临时磁盘表，所以就算不用MyISAM也最好为其设置一个不小的值，默认32M</span></span><br><span class="line"><span class="attr">key_buffer_size</span> = <span class="number">64</span>M</span><br><span class="line"><span class="comment">#全表扫描MyISAM表时的缓存，每个线程拥有下行的大小。</span></span><br><span class="line"><span class="attr">read_buffer_size</span> = <span class="number">2</span>M</span><br><span class="line"><span class="comment">#排序操作时与磁盘之间的缓存，分到每个线程，默认16M</span></span><br><span class="line"><span class="attr">read_rnd_buffer_size</span> = <span class="number">24</span>M</span><br><span class="line"><span class="comment">#MyISAM使用特殊树形进行批量插入时的缓存，如insert ... values(..)(..)(..)</span></span><br><span class="line"><span class="attr">bulk_insert_buffer_size</span> = <span class="number">64</span>M</span><br><span class="line"><span class="comment">#MyISAM索引文件的最大限定，</span></span><br><span class="line"><span class="attr">myisam_max_sort_file_size</span> = <span class="number">10</span>G</span><br><span class="line"><span class="comment">#如果一个myisam表有一个以上的索引， MyISAM可以使用一个以上线程来排序并行它们。较耗硬件资源，如果你的环境不错，可以增加此值。</span></span><br><span class="line"><span class="attr">myisam_repair_threads</span> = <span class="number">2</span></span><br><span class="line"><span class="comment"># *** INNODB Specific options ***</span></span><br><span class="line"><span class="comment">#开启下条将会禁用 INNODB</span></span><br><span class="line"><span class="comment">#skip-innodb</span></span><br><span class="line"><span class="comment">#innodb整体缓冲池大小，不宜过大，设为本地内存的 50%-75% 比较合适,在本机开发过程中可以设得较小一点如 64M,256M</span></span><br><span class="line"><span class="attr">innodb_buffer_pool_size</span> = <span class="number">256</span>M</span><br><span class="line"><span class="comment">#InnoDB的数据存储在一个或多个数据文件组成的表空间</span></span><br><span class="line"><span class="attr">innodb_data_file_path</span> = ibdata1:<span class="number">10</span>M:autoextend</span><br><span class="line"><span class="comment">#线程数内允许的InnoDB内核,不宜太高</span></span><br><span class="line"><span class="attr">innodb_thread_concurrency</span> = <span class="number">16</span></span><br><span class="line"><span class="comment">#InnoDB的事务日志快存行为,默认为 1，为0可减轻磁盘I/0操作，还有以为2</span></span><br><span class="line"><span class="attr">innodb_flush_log_at_trx_commit</span> = <span class="number">1</span></span><br><span class="line"><span class="comment">#InnoDB的用于的缓冲日志数据的大小</span></span><br><span class="line"><span class="attr">innodb_log_buffer_size</span> = <span class="number">8</span>M</span><br><span class="line"><span class="comment">#日志文件，可设置为25%-90%的总体缓存大小，默认 256M. 修改此项要先删除datadir\ib_logfileXXX</span></span><br><span class="line"><span class="attr">innodb_log_file_size</span> = <span class="number">256</span>M</span><br><span class="line"><span class="comment">#日志组数量，默认为3</span></span><br><span class="line"><span class="attr">innodb_log_files_in_group</span> = <span class="number">3</span></span><br><span class="line"><span class="comment">#InnoDB的日志文件位置。默认是MySQL的datadir</span></span><br><span class="line"><span class="comment">#innodb_log_group_home_dir</span></span><br><span class="line"><span class="comment">#InnoDB最大允许的脏页缓冲池的百分比，默认90</span></span><br><span class="line"><span class="attr">innodb_max_dirty_pages_pct</span> = <span class="number">80</span></span><br><span class="line"><span class="comment">#事务死锁超时设定</span></span><br><span class="line"><span class="attr">innodb_lock_wait_timeout</span> = <span class="number">120</span></span><br><span class="line"></span><br><span class="line"><span class="section">[client]</span></span><br><span class="line"><span class="comment"># 设置mysql客户端的字符集</span></span><br><span class="line"><span class="attr">loose-character-set-server</span>=utf8</span><br><span class="line"></span><br><span class="line"><span class="section">[mysqldump]</span></span><br><span class="line">quick</span><br><span class="line"><span class="attr">max_allowed_packet</span> = <span class="number">16</span>M</span><br><span class="line"></span><br><span class="line"><span class="section">[mysql]</span></span><br><span class="line">no-auto-rehash</span><br><span class="line"></span><br><span class="line"><span class="comment"># Only allow UPDATEs and DELETEs that use keys.</span></span><br><span class="line"><span class="comment">#safe-updates</span></span><br><span class="line"></span><br><span class="line"><span class="section">[WinMySQLAdmin]</span></span><br><span class="line"><span class="comment"># 指定mysql服务启动启动的文件</span></span><br><span class="line"><span class="attr">Server</span>=D:\\Application\\MySQL\\mysql-<span class="number">8.0</span>.<span class="number">22</span>-winx64\\bin\\mysqld.exe</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化mysql</p>
+<p>以管理员身份运行cmd(注意：一定要用管理员模式，不然权限不够),</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##将目录切换到mysql的bin目录，或者在文件夹的地址栏直接输入cmd回车进入cmd</span></span><br><span class="line">&gt; <span class="built_in">cd</span> D:\Application\MySQL\mysql-8.0.22-winx64\bin</span><br><span class="line"><span class="comment">## 初始化安装mysql,初始化完成后会输出A temporary password is generated for root@localhost，后面就是初始密码。</span></span><br><span class="line">&gt; mysqld --initialize --console</span><br><span class="line">2020-11-27T07:07:11.500052Z 0 [System] [MY-013169] [Server] D:\Application\MySQL\mysql-8.0.22-winx64\bin\mysqld.exe (mysqld 8.0.22) initializing of server <span class="keyword">in</span> progress as process 13308</span><br><span class="line">2020-11-27T07:07:11.501149Z 0 [Warning] [MY-013242] [Server] --character-set-server: <span class="string">'utf8'</span> is currently an <span class="built_in">alias</span> <span class="keyword">for</span> the character <span class="built_in">set</span> UTF8MB3, but will be an <span class="built_in">alias</span> <span class="keyword">for</span> UTF8MB4 <span class="keyword">in</span> a future release. Please consider using UTF8MB4 <span class="keyword">in</span> order to be unambiguous.</span><br><span class="line">2020-11-27T07:07:11.523063Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.</span><br><span class="line">2020-11-27T07:07:12.592780Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.</span><br><span class="line">2020-11-27T07:07:14.060740Z 6 [Note] [MY-010454] [Server] A temporary password is generated <span class="keyword">for</span> root@localhost: T&gt;k%jFWYT3ir</span><br><span class="line"><span class="comment">## 安装mysql服务</span></span><br><span class="line">&gt; mysqld install</span><br><span class="line">Service successfully installed.</span><br><span class="line"><span class="comment">## 启动mysql服务</span></span><br><span class="line">&gt; net start mysql</span><br><span class="line">MySQL 服务正在启动 .</span><br><span class="line">MySQL 服务已经启动成功。</span><br><span class="line"><span class="comment">## 登录mysql,这时会提示输入密码就是初始密码</span></span><br><span class="line">&gt; mysql -u root -p</span><br><span class="line">mysql: [Warning] unknown variable <span class="string">'loose-character-set-server=utf8'</span>.</span><br><span class="line">Enter password: ************</span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 10</span><br><span class="line">Server version: 8.0.22</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type <span class="string">'help;'</span> or <span class="string">'\h'</span> <span class="keyword">for</span> <span class="built_in">help</span>. Type <span class="string">'\c'</span> to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt;</span><br><span class="line"><span class="comment">## 修改初始密码</span></span><br><span class="line">mysql&gt; use mysql</span><br><span class="line">mysql&gt; ALTER USER root@localhost IDENTIFIED BY </span><br><span class="line"><span class="string">'123456'</span>;</span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"><span class="comment">##到这里就安装完成了</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装桌面客户端</p>
+<p>大多数都会用一个navicat来连接数据库，可以从官网上下载，上面也有下载地址，都是中文，安装选择安装路径后一直下一步就行</p>
+</li>
+<li><p>navicat登录mysql</p>
+<p>点击连接选择MySql</p>
+<p>连接名可以随意填，ip或主机地址可以填localhost或者127.0.0.1，端口默认3306，安装时my.ini的port是多少就是多少，用户名root,密码是上面改后的密码123456，没改就是初始密码,完成后点击测试链接，提示连接成功后点击确定</p>
+<img src="https://pic.downk.cc/item/5fc0b4d015e77190845f622d.png" alt="image-20201127160350001" style="zoom:50%;" />
+
+<img src="https://pic.downk.cc/item/5fc0b4e615e77190845f6a08.png" alt="image-20201127160505559" style="zoom:50%;" />
+
+</li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        Donate
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://thepri.github.io/2020/11/27/MySql%E5%AE%89%E8%A3%85/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySql/" rel="tag">MySql</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/01/10/gitlab%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            gitlab服务搭建
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/11/03/java%E7%BA%BF%E7%A8%8B2/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">java2线程</div>
+      </a>
+    
+  </nav>
+
+  
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2021
+        <i class="ri-heart-fill heart_icon"></i> zelong
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="zelong"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">图片</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://pic.downk.cc/item/5f222cce14195aa594e56c37.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://pic.downk.cc/item/5f222e7b14195aa594e63794.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+  </div>
+</body>
+
+</html>

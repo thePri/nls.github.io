@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Oracle常用函数 |  zelong
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="zelong" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Oracle常用函数"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Oracle常用函数
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/09/20/Oracle%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" class="article-date">
+  <time datetime="2020-09-20T05:46:47.000Z" itemprop="datePublished">2020-09-20</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/oracle/">oracle</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">835</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">3 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h4 id="1-ASCII"><a href="#1-ASCII" class="headerlink" title="1. ASCII"></a>1. ASCII</h4><p>返回指定字符对应的十进制数；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select ascii(&#39;A&#39;) A,ascii(&#39;a&#39;) a,ascii(&#39;0&#39;) zero,ascii(&#39; &#39;) space from dual;</span><br><span class="line">--返回： A:65  a:97  zero:48  space:32</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h4 id="2-CHR"><a href="#2-CHR" class="headerlink" title="2. CHR"></a>2. CHR</h4><p>根据十进制数返回对应的字符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select chr(54740) zhao,chr(65) chr65 from dual</span><br><span class="line">--返回： zhao:赵   chr65:65</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-CONCAT"><a href="#3-CONCAT" class="headerlink" title="3. CONCAT"></a>3. CONCAT</h4><p>连接两个字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select concat(&#39;010-&#39;,&#39;88888888&#39;)||&#39;转23&#39; 电话 from dual;</span><br><span class="line">--返回： 010-88888888转23</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-INITCAP"><a href="#4-INITCAP" class="headerlink" title="4. INITCAP"></a>4. INITCAP</h4><p>返回字符串并将字符串的第一个字母变为大写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select initcap(&#39;smith&#39;) upp from dual;</span><br><span class="line">--返回： upp:Smith</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-INSTR-c1-c2-I-J"><a href="#5-INSTR-c1-c2-I-J" class="headerlink" title="5. INSTR(c1,c2.I,J)"></a>5. INSTR(c1,c2.I,J)</h4><p>在一个字符串中搜索指定的字符，返回发现指定字符的位置</p>
+<p>C1: 被搜索的字符串</p>
+<p>C2: 希望搜索的字符串</p>
+<p>I: 搜索的开始位置，默认为1</p>
+<p>J: 出现的位置，默认为1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select instr(&#39;oracle traning&#39;,&#39;ra&#39;,1,2) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-LENGTH"><a href="#6-LENGTH" class="headerlink" title="6. LENGTH"></a>6. LENGTH</h4><p>返回字符串的长度</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select length(&#39;百度一下&#39;)，length(&#39;9999.99&#39;) from dual;</span><br><span class="line">-- 返回： 4 7</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-LOWER"><a href="#7-LOWER" class="headerlink" title="7. LOWER"></a>7. LOWER</h4><p>返回字符串，并将所有的字符小写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select lower(&#39;AaBbCcDd&#39;) from dual;</span><br><span class="line">--返回： aabbccdd</span><br></pre></td></tr></table></figure>
+
+<h4 id="8-UPPER"><a href="#8-UPPER" class="headerlink" title="8. UPPER"></a>8. UPPER</h4><p>返回字符串，并将所有字符大写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select upper(AaBbCcDd) from dual;</span><br><span class="line">-- 返回： AABBCCDD</span><br></pre></td></tr></table></figure>
+
+<h4 id="9-RPAD和LPAD"><a href="#9-RPAD和LPAD" class="headerlink" title="9. RPAD和LPAD"></a>9. RPAD和LPAD</h4><p>RPAD:在列的右边粘贴字符</p>
+<p>LPAD:在列的左边粘贴字符</p>
+<p>gao表示要粘贴的字符，10表示有10个字符的位置，<em>表示不够用</em>来代替</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select lpad(rpad(&#39;gao&#39;,10,&#39;*&#39;),17,&#39;-&#39;)from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="10-LTRIM和RTRIM"><a href="#10-LTRIM和RTRIM" class="headerlink" title="10. LTRIM和RTRIM"></a>10. LTRIM和RTRIM</h4><p>LTRIM： 删除左边出现的字符串</p>
+<p>RTRIM： 删除右边出现的字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select ltrim(rtrim(&#39;  删除右边出,现的字符串,salfibcal &#39;,&#39; &#39;),&#39;,&#39;) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="11-SUBSTR-String-start-count"><a href="#11-SUBSTR-String-start-count" class="headerlink" title="11. SUBSTR(String,start,count)"></a>11. SUBSTR(String,start,count)</h4><p>截取字符串，从start开始，取count个,从第三个开始取</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select substr(&#39;123456789&#39;,3,5) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="12-REPLACE-‘string’-’s1’-’s2’"><a href="#12-REPLACE-‘string’-’s1’-’s2’" class="headerlink" title="12. REPLACE(‘string’,’s1’,’s2’)"></a>12. REPLACE(‘string’,’s1’,’s2’)</h4><p>替换字符串</p>
+<p>string： 字符串</p>
+<p>s1： 被替换的字符串</p>
+<p>s2： 要替换的字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select replace(&#39;当时就觉得是客户跟进当时就觉得&#39;,&#39;就觉得&#39;,&#39;1&#39;) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="13-SOUDEX"><a href="#13-SOUDEX" class="headerlink" title="13. SOUDEX"></a>13. SOUDEX</h4><p>返回一个与给定字符串读音相同的字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select columnName from tableName where soundex(columnName) &#x3D; soundex(&#39;字符串&#39;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="14-ABS"><a href="#14-ABS" class="headerlink" title="14. ABS"></a>14. ABS</h4><p>返回指定值的绝对值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select abs(-100) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="15-CEIL"><a href="#15-CEIL" class="headerlink" title="15. CEIL"></a>15. CEIL</h4><p>返回大于或等于给出数字的最小整数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select ceil(3.1415927) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="17-FLOOR"><a href="#17-FLOOR" class="headerlink" title="17. FLOOR"></a>17. FLOOR</h4><p>对给定的数字取整数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select floor(2345.67) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="18-ROUND和TRUNC"><a href="#18-ROUND和TRUNC" class="headerlink" title="18. ROUND和TRUNC"></a>18. ROUND和TRUNC</h4><p>按照指定的精度进行取舍</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select round(55.5),round(-55.4),trunc(55.5),trunc(-55.5) from dual;</span><br><span class="line">--返回： 56，-55，55，-55</span><br></pre></td></tr></table></figure>
+
+<h4 id="19-ADD-MONTHS"><a href="#19-ADD-MONTHS" class="headerlink" title="19. ADD_MONTHS"></a>19. ADD_MONTHS</h4><p>增加或减去月份</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select to_char(add_months(to_date(&#39;199912&#39;,&#39;yyyymm&#39;),-2),&#39;yyyymm&#39;) from dual;</span><br><span class="line">SQL&gt; select to_char(add_months(to_date(&#39;199912&#39;,&#39;yyyymm&#39;),2),&#39;yyyymm&#39;) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="20-LAST-DAY"><a href="#20-LAST-DAY" class="headerlink" title="20. LAST_DAY"></a>20. LAST_DAY</h4><p>返回日期的最后一天</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select last_day(sysdate) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="21-USER"><a href="#21-USER" class="headerlink" title="21. USER"></a>21. USER</h4><p>返回当前用户的名字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select user from dual;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="22-MONTHS-BETWEEN-date2-date1"><a href="#22-MONTHS-BETWEEN-date2-date1" class="headerlink" title="22. MONTHS_BETWEEN(date2,date1)"></a>22. MONTHS_BETWEEN(date2,date1)</h4><p>给出date2-date1的月份</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select months_between(&#39;19-12月-1999&#39;,&#39;19-3月-1999&#39;) from dual; </span><br><span class="line">SQL&gt; select months_between(to_date(&#39;2000.05.20&#39;,&#39;yyyy.mm.dd&#39;),to_date(&#39;2005.05.20&#39;,&#39;yyyy.mm.dd&#39;))  from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="23-NEXT-DAY"><a href="#23-NEXT-DAY" class="headerlink" title="23. NEXT_DAY"></a>23. NEXT_DAY</h4><p>给出日期date和星期X后计算下一个星期X的日期</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select next_day(&#39;18-5月-2001&#39;,&#39;星期五&#39;) from dual;</span><br></pre></td></tr></table></figure>
+
+ 
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        Donate
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://thepri.github.io/2020/09/20/Oracle%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/10/30/Java%E7%BA%BF%E7%A8%8B/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Java线程
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/08/13/Oracle-PLSQL%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Oracle PLSQL执行计划学习记录</div>
+      </a>
+    
+  </nav>
+
+  
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2021
+        <i class="ri-heart-fill heart_icon"></i> zelong
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="zelong"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">图片</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://pic.downk.cc/item/5f222cce14195aa594e56c37.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://pic.downk.cc/item/5f222e7b14195aa594e63794.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+  </div>
+</body>
+
+</html>

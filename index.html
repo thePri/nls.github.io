@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+     zelong
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="zelong" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      
+<section class="cover">
+    
+  <div class="cover-frame">
+    <div class="bg-box">
+      <img src="/images/cover1.jpg" alt="image frame" />
+    </div>
+    <div class="cover-inner text-center text-white">
+      <h1><a href="/">zelong</a></h1>
+      <div id="subtitle-box">
+        
+        <span id="subtitle"></span>
+        
+      </div>
+      <div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="cover-learn-more">
+    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
+  </div>
+</section>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+
+
+<!-- Subtitle -->
+
+  <script>
+    try {
+      var typed = new Typed("#subtitle", {
+        strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
+        startDelay: 0,
+        typeSpeed: 200,
+        loop: true,
+        backSpeed: 100,
+        showCursor: true
+      });
+    } catch (err) {
+      console.log(err)
+    }
+  </script>
+  
+<div id="main">
+  <section class="outer">
+  <article class="articles">
+    
+    
+    
+    
+    <article
+  id="post-Oracle与MySQL语法上的区别"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/03/02/Oracle%E4%B8%8EMySQL%E8%AF%AD%E6%B3%95%E4%B8%8A%E7%9A%84%E5%8C%BA%E5%88%AB/"
+    >Oracle与MySQL语法上的区别</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/03/02/Oracle%E4%B8%8EMySQL%E8%AF%AD%E6%B3%95%E4%B8%8A%E7%9A%84%E5%8C%BA%E5%88%AB/" class="article-date">
+  <time datetime="2021-03-02T10:11:35.000Z" itemprop="datePublished">2021-03-02</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <ol>
+<li><p>注释</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Oracle注释可以--后直接写注释内容</span></span><br><span class="line"><span class="comment">-- MySQL注释在--后必须有一个空格，否则注释不生效</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>日期格式化</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--oracle </span></span><br><span class="line"><span class="keyword">select</span> to_char(<span class="keyword">sysdate</span>,<span class="string">'yyyy-mm-dd hh24-mi-ss'</span>) <span class="keyword">from</span> dual;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">to_date</span>(<span class="keyword">sysdate</span>,<span class="string">'yyyy-mm-dd hh24-mi-ss'</span>) <span class="keyword">from</span> dual;</span><br><span class="line"><span class="comment">-- MySQL</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">date_format</span>(<span class="keyword">sysdate</span>(),<span class="string">'%Y-%m-%d %H:%i:%S'</span>);</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">time_format</span>(<span class="keyword">sysdate</span>(),<span class="string">'%H-%i-%S'</span>);</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">str_to_date</span>(<span class="keyword">sysdate</span>(),<span class="string">'%Y-%m-%d %H-%i-%S'</span>);</span><br></pre></td></tr></table></figure> 
+      <a class="article-more-link" href="/2021/03/02/Oracle%E4%B8%8EMySQL%E8%AF%AD%E6%B3%95%E4%B8%8A%E7%9A%84%E5%8C%BA%E5%88%AB/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+</article>
+
+    
+    <article
+  id="post-svn搭建"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/01/16/svn%E6%90%AD%E5%BB%BA/"
+    >Linux搭建SVN服务</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/16/svn%E6%90%AD%E5%BB%BA/" class="article-date">
+  <time datetime="2021-01-16T04:54:04.000Z" itemprop="datePublished">2021-01-16</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SVN/">SVN</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Linux搭建SVN服务"><a href="#Linux搭建SVN服务" class="headerlink" title="Linux搭建SVN服务"></a>Linux搭建SVN服务</h1><h2 id="准备安装包"><a href="#准备安装包" class="headerlink" title="准备安装包"></a>准备安装包</h2><p>下载<a href="http://subversion.apache.org/download/" target="_blank" rel="noopener">subversion</a>  下载<a href="http://apr.apache.org/download.cgi" target="_blank" rel="noopener">apr</a>   下载<a href="http://apr.apache.org/download.cgi" target="_blank" rel="noopener">apr-util</a>   下载<a href="http://linux.softpedia.com/get/Programming/Libraries/zlib-159.shtml" target="_blank" rel="noopener">zlib</a>   下载<a href="http://sqlite.org/download.html" target="_blank" rel="noopener">sqllite</a>   下载<a href="http://www.linuxfromscratch.org/blfs/view/6.3/general/expat.html" target="_blank" rel="noopener">expat</a></p>
+<h2 id="安装版本"><a href="#安装版本" class="headerlink" title="安装版本"></a>安装版本</h2><ol>
+<li>主安装包：subversion-1.14.0.tar.gz</li>
+<li>svn基础依赖包：apr-1.7.0.tar.gz</li>
+<li>svn基础依赖包：apr-util-1.6.1.tar.gz</li>
+<li>svn基础依赖包：zlib-1.2.11.tar.xz</li>
+<li>数据库依赖包：sqlite-autoconf-3340000.tar.gz</li>
+<li>apr-util依赖包：expat-2.0.1.tar.gz 
+      <a class="article-more-link" href="/2021/01/16/svn%E6%90%AD%E5%BB%BA/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SVN/" rel="tag">SVN</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+</article>
+
+    
+    <article
+  id="post-gitlab服务搭建"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/01/10/gitlab%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA/"
+    >gitlab服务搭建</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/10/gitlab%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA/" class="article-date">
+  <time datetime="2021-01-10T04:54:04.000Z" itemprop="datePublished">2021-01-10</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Git/">Git</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="版本介绍"><a href="#版本介绍" class="headerlink" title="版本介绍"></a>版本介绍</h2><ol>
+<li><p>查看系统版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ /]<span class="comment"># cat  /etc/redhat-release</span></span><br><span class="line">CentOS Linux release 7.6.1810 (Core)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>gitlab版本</p>
+<p>gitlab-ce-13.6.3-ce.0.el6.x86_64.rpm</p>
+</li>
+</ol> 
+      <a class="article-more-link" href="/2021/01/10/gitlab%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+</article>
+
+    
+    <article
+  id="post-MySql安装"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/11/27/MySql%E5%AE%89%E8%A3%85/"
+    >MySql安装</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/11/27/MySql%E5%AE%89%E8%A3%85/" class="article-date">
+  <time datetime="2020-11-27T03:04:23.000Z" itemprop="datePublished">2020-11-27</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Mysql/">Mysql</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a href="https://www.mysql.com/" target="_blank" rel="noopener">官网地址</a>     <a href="https://cpv2.mairuan.com/formysql.com/trial/navicat_premium_trial_64.exe" target="_blank" rel="noopener">navicat下载</a></p>
+<h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><ol>
+<li><p>访问官网翻到最下面，在DOWNLOADS里点击MySQL Community Server(社区版本)</p>
+<p><img src="https://pic.downk.cc/item/5fc0b41d15e77190845f1820.png" alt="image-20201127111330924"></p> 
+      <a class="article-more-link" href="/2020/11/27/MySql%E5%AE%89%E8%A3%85/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySql/" rel="tag">MySql</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+</article>
+
+    
+    <article
+  id="post-java线程2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/11/03/java%E7%BA%BF%E7%A8%8B2/"
+    >java2线程</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/11/03/java%E7%BA%BF%E7%A8%8B2/" class="article-date">
+  <time datetime="2020-11-03T08:08:23.000Z" itemprop="datePublished">2020-11-03</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a href="https://www.cnblogs.com/java1024/archive/2019/11/28/11950129.html" target="_blank" rel="noopener">参考</a></p>
+<h4 id="1-线程的状态变化"><a href="#1-线程的状态变化" class="headerlink" title="1. 线程的状态变化"></a>1. 线程的状态变化</h4><ul>
+<li><p>创建状态</p>
+<p>用构造方法创建了一个线程对象后，新的线程对象便处于新建状态，此时它已经有了相应的内存空间和其他资源，但还处于不可运行状态。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Thread thread = <span class="keyword">new</span> Thread();</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>就绪状态</p>
+<p>调用该线程的start()方法就可以启动线程。当线程启动时，线程进入就绪状态，此时，线程将进入线程队列排队，等待CPU服务，这表明它已经具备了运行条件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thread.start();</span><br></pre></td></tr></table></figure> 
+      <a class="article-more-link" href="/2020/11/03/java%E7%BA%BF%E7%A8%8B2/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E7%BA%BF%E7%A8%8B/" rel="tag">Java线程</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+</article>
+
+    
+    <article
+  id="post-Java线程"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/10/30/Java%E7%BA%BF%E7%A8%8B/"
+    >Java线程</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/10/30/Java%E7%BA%BF%E7%A8%8B/" class="article-date">
+  <time datetime="2020-10-30T05:48:49.000Z" itemprop="datePublished">2020-10-30</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h4 id="创建线程的方式"><a href="#创建线程的方式" class="headerlink" title="创建线程的方式"></a>创建线程的方式</h4><ol>
+<li>继承Thread类，重新run()方法。 没有返回值。</li>
+<li>实现Runnable接口，重新run()方法。 没有返回值</li>
+<li>实现Callable接口，重写call()方法，利用FutureTask包装Callable，并作为task传入Thread构造函数。 有返回值</li>
+<li>利用线程池</li>
+</ol> 
+      <a class="article-more-link" href="/2020/10/30/Java%E7%BA%BF%E7%A8%8B/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E7%BA%BF%E7%A8%8B/" rel="tag">Java线程</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+</article>
+
+    
+    <article
+  id="post-Oracle常用函数"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/09/20/Oracle%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/"
+    >Oracle常用函数</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/09/20/Oracle%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" class="article-date">
+  <time datetime="2020-09-20T05:46:47.000Z" itemprop="datePublished">2020-09-20</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/oracle/">oracle</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h4 id="1-ASCII"><a href="#1-ASCII" class="headerlink" title="1. ASCII"></a>1. ASCII</h4><p>返回指定字符对应的十进制数；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select ascii(&#39;A&#39;) A,ascii(&#39;a&#39;) a,ascii(&#39;0&#39;) zero,ascii(&#39; &#39;) space from dual;</span><br><span class="line">--返回： A:65  a:97  zero:48  space:32</span><br></pre></td></tr></table></figure> 
+      <a class="article-more-link" href="/2020/09/20/Oracle%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+</article>
+
+    
+    <article
+  id="post-Oracle-PLSQL执行计划学习记录"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/08/13/Oracle-PLSQL%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"
+    >Oracle PLSQL执行计划学习记录</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/08/13/Oracle-PLSQL%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="article-date">
+  <time datetime="2020-08-13T01:20:38.000Z" itemprop="datePublished">2020-08-13</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/oracle/">oracle</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="1-什么是执行计划"><a href="#1-什么是执行计划" class="headerlink" title="1. 什么是执行计划"></a>1. 什么是执行计划</h2><p>对一个查询任务，做出一份怎样完成任务的详细方案。Sql是一种傻瓜式语言，每一个条件就是一个需求，访问的顺序不同就形成了不同的执行计划，Oracle必须做出选择，一次只能有一种访问路径，一个访问路径就是一个执行计划</p> 
+      <a class="article-more-link" href="/2020/08/13/Oracle-PLSQL%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+</article>
+
+    
+    <article
+  id="post-Git学习"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/08/02/Git%E5%AD%A6%E4%B9%A0/"
+    >Git学习</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/08/02/Git%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time datetime="2020-08-02T04:54:04.000Z" itemprop="datePublished">2020-08-02</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Git/">Git</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Git是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或大或小的项目</p>
+<p>Git不仅仅是个版本控制系统，它也是内容管理系统，工作管理系统等</p>
+<p>Git与SVN的区别：</p>
+<ol>
+<li>Git是分布式的，SVN不是</li>
+<li>Git把内容按照元数据方式存储，SVN是按文件存储</li>
+<li>Git分支和SVN的分支不同</li>
+<li>Git没有全局的版本号，而SVN有</li>
+<li>Git内容完整性要优于SVN</li>
+</ol> 
+      <a class="article-more-link" href="/2020/08/02/Git%E5%AD%A6%E4%B9%A0/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+</article>
+
+    
+    <article
+  id="post-共享存储服务搭建、zip、unzip"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/08/02/%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E3%80%81zip%E3%80%81unzip/"
+    >共享存储服务搭建、zip、unzip</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/08/02/%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E3%80%81zip%E3%80%81unzip/" class="article-date">
+  <time datetime="2020-08-02T04:54:04.000Z" itemprop="datePublished">2020-08-02</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Git/">Git</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="安装zip和unzip"><a href="#安装zip和unzip" class="headerlink" title="安装zip和unzip"></a>安装zip和unzip</h2><ol>
+<li><p>查看系统版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ /]<span class="comment"># lsb_release -a</span></span><br><span class="line">LSB Version:	:core-4.1-amd64:core-4.1-noarch</span><br><span class="line">Distributor ID:	CentOS</span><br><span class="line">Description:	CentOS Linux release 7.6.1810 (Core) </span><br><span class="line">Release:	7.6.1810</span><br><span class="line">Codename:	Core</span><br></pre></td></tr></table></figure> 
+      <a class="article-more-link" href="/2020/08/02/%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E3%80%81zip%E3%80%81unzip/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+</article>
+
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+  </nav>
+  
+</section>
+</div>
+
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2021
+        <i class="ri-heart-fill heart_icon"></i> zelong
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="zelong"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">图片</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://pic.downk.cc/item/5f222cce14195aa594e56c37.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://pic.downk.cc/item/5f222e7b14195aa594e63794.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+  </div>
+</body>
+
+</html>

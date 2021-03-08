@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>zelong</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://thepri.github.io/"/>
+  <updated>2021-03-08T09:12:43.780Z</updated>
+  <id>http://thepri.github.io/</id>
+  
+  <author>
+    <name>zelong</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Oracle与MySQL语法上的区别</title>
+    <link href="http://thepri.github.io/2021/03/02/Oracle%E4%B8%8EMySQL%E8%AF%AD%E6%B3%95%E4%B8%8A%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>http://thepri.github.io/2021/03/02/Oracle%E4%B8%8EMySQL%E8%AF%AD%E6%B3%95%E4%B8%8A%E7%9A%84%E5%8C%BA%E5%88%AB/</id>
+    <published>2021-03-02T10:11:35.000Z</published>
+    <updated>2021-03-08T09:12:43.780Z</updated>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;&lt;p&gt;注释&lt;/p&gt;
+&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;-- Oracle注释可以--后直接写注释内容&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;-- MySQL注释在--后必须有一个空格，否则注释不生效&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;日期格式化&lt;/p&gt;
+&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;--oracle &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;select&lt;/span&gt; to_char(&lt;span class=&quot;keyword&quot;&gt;sysdate&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;yyyy-mm-dd hh24-mi-ss&#39;&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; dual;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;to_date&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;sysdate&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;&#39;yyyy-mm-dd hh24-mi-ss&#39;&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; dual;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;-- MySQL&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;date_format&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;sysdate&lt;/span&gt;(),&lt;span class=&quot;string&quot;&gt;&#39;%Y-%m-%d %H:%i:%S&#39;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;time_format&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;sysdate&lt;/span&gt;(),&lt;span class=&quot;string&quot;&gt;&#39;%H-%i-%S&#39;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;str_to_date&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;sysdate&lt;/span&gt;(),&lt;span class=&quot;string&quot;&gt;&#39;%Y-%m-%d %H-%i-%S&#39;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="数据库" scheme="http://thepri.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="数据库" scheme="http://thepri.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux搭建SVN服务</title>
+    <link href="http://thepri.github.io/2021/01/16/svn%E6%90%AD%E5%BB%BA/"/>
+    <id>http://thepri.github.io/2021/01/16/svn%E6%90%AD%E5%BB%BA/</id>
+    <published>2021-01-16T04:54:04.000Z</published>
+    <updated>2021-01-16T08:16:11.149Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Linux搭建SVN服务&quot;&gt;&lt;a href=&quot;#Linux搭建SVN服务&quot; class=&quot;headerlink&quot; title=&quot;Linux搭建SVN服务&quot;&gt;&lt;/a&gt;Linux搭建SVN服务&lt;/h1&gt;&lt;h2 id=&quot;准备安装包&quot;&gt;&lt;a href=&quot;#准备安装包&quot; class=&quot;headerlink&quot; title=&quot;准备安装包&quot;&gt;&lt;/a&gt;准备安装包&lt;/h2&gt;&lt;p&gt;下载&lt;a href=&quot;http://subversion.apache.org/download/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;subversion&lt;/a&gt;  下载&lt;a href=&quot;http://apr.apache.org/download.cgi&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;apr&lt;/a&gt;   下载&lt;a href=&quot;http://apr.apache.org/download.cgi&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;apr-util&lt;/a&gt;   下载&lt;a href=&quot;http://linux.softpedia.com/get/Programming/Libraries/zlib-159.shtml&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;zlib&lt;/a&gt;   下载&lt;a href=&quot;http://sqlite.org/download.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;sqllite&lt;/a&gt;   下载&lt;a href=&quot;http://www.linuxfromscratch.org/blfs/view/6.3/general/expat.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;expat&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;安装版本&quot;&gt;&lt;a href=&quot;#安装版本&quot; class=&quot;headerlink&quot; title=&quot;安装版本&quot;&gt;&lt;/a&gt;安装版本&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;主安装包：subversion-1.14.0.tar.gz&lt;/li&gt;
+&lt;li&gt;svn基础依赖包：apr-1.7.0.tar.gz&lt;/li&gt;
+&lt;li&gt;svn基础依赖包：apr-util-1.6.1.tar.gz&lt;/li&gt;
+&lt;li&gt;svn基础依赖包：zlib-1.2.11.tar.xz&lt;/li&gt;
+&lt;li&gt;数据库依赖包：sqlite-autoconf-3340000.tar.gz&lt;/li&gt;
+&lt;li&gt;apr-util依赖包：expat-2.0.1.tar.gz
+    
+    </summary>
+    
+    
+      <category term="SVN" scheme="http://thepri.github.io/categories/SVN/"/>
+    
+    
+      <category term="SVN" scheme="http://thepri.github.io/tags/SVN/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>gitlab服务搭建</title>
+    <link href="http://thepri.github.io/2021/01/10/gitlab%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA/"/>
+    <id>http://thepri.github.io/2021/01/10/gitlab%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA/</id>
+    <published>2021-01-10T04:54:04.000Z</published>
+    <updated>2021-03-02T10:04:04.175Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;版本介绍&quot;&gt;&lt;a href=&quot;#版本介绍&quot; class=&quot;headerlink&quot; title=&quot;版本介绍&quot;&gt;&lt;/a&gt;版本介绍&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;查看系统版本&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[root@iZ2zehazvy0emyfm6ab6wuZ /]&lt;span class=&quot;comment&quot;&gt;# cat  /etc/redhat-release&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CentOS Linux release 7.6.1810 (Core)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;gitlab版本&lt;/p&gt;
+&lt;p&gt;gitlab-ce-13.6.3-ce.0.el6.x86_64.rpm&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="Git" scheme="http://thepri.github.io/categories/Git/"/>
+    
+    
+      <category term="Git" scheme="http://thepri.github.io/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySql安装</title>
+    <link href="http://thepri.github.io/2020/11/27/MySql%E5%AE%89%E8%A3%85/"/>
+    <id>http://thepri.github.io/2020/11/27/MySql%E5%AE%89%E8%A3%85/</id>
+    <published>2020-11-27T03:04:23.000Z</published>
+    <updated>2021-02-27T13:13:08.985Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://www.mysql.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;官网地址&lt;/a&gt;     &lt;a href=&quot;https://cpv2.mairuan.com/formysql.com/trial/navicat_premium_trial_64.exe&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;navicat下载&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;下载&quot;&gt;&lt;a href=&quot;#下载&quot; class=&quot;headerlink&quot; title=&quot;下载&quot;&gt;&lt;/a&gt;下载&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;访问官网翻到最下面，在DOWNLOADS里点击MySQL Community Server(社区版本)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://pic.downk.cc/item/5fc0b41d15e77190845f1820.png&quot; alt=&quot;image-20201127111330924&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Mysql" scheme="http://thepri.github.io/categories/Mysql/"/>
+    
+    
+      <category term="MySql" scheme="http://thepri.github.io/tags/MySql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>java2线程</title>
+    <link href="http://thepri.github.io/2020/11/03/java%E7%BA%BF%E7%A8%8B2/"/>
+    <id>http://thepri.github.io/2020/11/03/java%E7%BA%BF%E7%A8%8B2/</id>
+    <published>2020-11-03T08:08:23.000Z</published>
+    <updated>2021-02-27T13:13:10.840Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/java1024/archive/2019/11/28/11950129.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;1-线程的状态变化&quot;&gt;&lt;a href=&quot;#1-线程的状态变化&quot; class=&quot;headerlink&quot; title=&quot;1. 线程的状态变化&quot;&gt;&lt;/a&gt;1. 线程的状态变化&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;创建状态&lt;/p&gt;
+&lt;p&gt;用构造方法创建了一个线程对象后，新的线程对象便处于新建状态，此时它已经有了相应的内存空间和其他资源，但还处于不可运行状态。例如：&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Thread thread = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Thread();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;就绪状态&lt;/p&gt;
+&lt;p&gt;调用该线程的start()方法就可以启动线程。当线程启动时，线程进入就绪状态，此时，线程将进入线程队列排队，等待CPU服务，这表明它已经具备了运行条件&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;thread.start();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://thepri.github.io/categories/Java/"/>
+    
+    
+      <category term="Java线程" scheme="http://thepri.github.io/tags/Java%E7%BA%BF%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java线程</title>
+    <link href="http://thepri.github.io/2020/10/30/Java%E7%BA%BF%E7%A8%8B/"/>
+    <id>http://thepri.github.io/2020/10/30/Java%E7%BA%BF%E7%A8%8B/</id>
+    <published>2020-10-30T05:48:49.000Z</published>
+    <updated>2021-02-27T13:13:11.706Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;创建线程的方式&quot;&gt;&lt;a href=&quot;#创建线程的方式&quot; class=&quot;headerlink&quot; title=&quot;创建线程的方式&quot;&gt;&lt;/a&gt;创建线程的方式&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;继承Thread类，重新run()方法。 没有返回值。&lt;/li&gt;
+&lt;li&gt;实现Runnable接口，重新run()方法。 没有返回值&lt;/li&gt;
+&lt;li&gt;实现Callable接口，重写call()方法，利用FutureTask包装Callable，并作为task传入Thread构造函数。 有返回值&lt;/li&gt;
+&lt;li&gt;利用线程池&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://thepri.github.io/categories/Java/"/>
+    
+    
+      <category term="Java线程" scheme="http://thepri.github.io/tags/Java%E7%BA%BF%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Oracle常用函数</title>
+    <link href="http://thepri.github.io/2020/09/20/Oracle%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/"/>
+    <id>http://thepri.github.io/2020/09/20/Oracle%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</id>
+    <published>2020-09-20T05:46:47.000Z</published>
+    <updated>2020-10-30T07:56:12.316Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;1-ASCII&quot;&gt;&lt;a href=&quot;#1-ASCII&quot; class=&quot;headerlink&quot; title=&quot;1. ASCII&quot;&gt;&lt;/a&gt;1. ASCII&lt;/h4&gt;&lt;p&gt;返回指定字符对应的十进制数；&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;SQL&amp;gt; select ascii(&amp;#39;A&amp;#39;) A,ascii(&amp;#39;a&amp;#39;) a,ascii(&amp;#39;0&amp;#39;) zero,ascii(&amp;#39; &amp;#39;) space from dual;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;--返回： A:65  a:97  zero:48  space:32&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="oracle" scheme="http://thepri.github.io/categories/oracle/"/>
+    
+    
+      <category term="Oracle" scheme="http://thepri.github.io/tags/Oracle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Oracle PLSQL执行计划学习记录</title>
+    <link href="http://thepri.github.io/2020/08/13/Oracle-PLSQL%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    <id>http://thepri.github.io/2020/08/13/Oracle-PLSQL%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</id>
+    <published>2020-08-13T01:20:38.000Z</published>
+    <updated>2020-10-30T07:56:02.221Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-什么是执行计划&quot;&gt;&lt;a href=&quot;#1-什么是执行计划&quot; class=&quot;headerlink&quot; title=&quot;1. 什么是执行计划&quot;&gt;&lt;/a&gt;1. 什么是执行计划&lt;/h2&gt;&lt;p&gt;对一个查询任务，做出一份怎样完成任务的详细方案。Sql是一种傻瓜式语言，每一个条件就是一个需求，访问的顺序不同就形成了不同的执行计划，Oracle必须做出选择，一次只能有一种访问路径，一个访问路径就是一个执行计划&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="oracle" scheme="http://thepri.github.io/categories/oracle/"/>
+    
+    
+      <category term="Oracle" scheme="http://thepri.github.io/tags/Oracle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git学习</title>
+    <link href="http://thepri.github.io/2020/08/02/Git%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://thepri.github.io/2020/08/02/Git%E5%AD%A6%E4%B9%A0/</id>
+    <published>2020-08-02T04:54:04.000Z</published>
+    <updated>2020-10-30T07:55:21.191Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;Git是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或大或小的项目&lt;/p&gt;
+&lt;p&gt;Git不仅仅是个版本控制系统，它也是内容管理系统，工作管理系统等&lt;/p&gt;
+&lt;p&gt;Git与SVN的区别：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Git是分布式的，SVN不是&lt;/li&gt;
+&lt;li&gt;Git把内容按照元数据方式存储，SVN是按文件存储&lt;/li&gt;
+&lt;li&gt;Git分支和SVN的分支不同&lt;/li&gt;
+&lt;li&gt;Git没有全局的版本号，而SVN有&lt;/li&gt;
+&lt;li&gt;Git内容完整性要优于SVN&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="Git" scheme="http://thepri.github.io/categories/Git/"/>
+    
+    
+      <category term="Git" scheme="http://thepri.github.io/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>共享存储服务搭建、zip、unzip</title>
+    <link href="http://thepri.github.io/2020/08/02/%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E3%80%81zip%E3%80%81unzip/"/>
+    <id>http://thepri.github.io/2020/08/02/%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E3%80%81zip%E3%80%81unzip/</id>
+    <published>2020-08-02T04:54:04.000Z</published>
+    <updated>2021-02-27T13:13:13.608Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;安装zip和unzip&quot;&gt;&lt;a href=&quot;#安装zip和unzip&quot; class=&quot;headerlink&quot; title=&quot;安装zip和unzip&quot;&gt;&lt;/a&gt;安装zip和unzip&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;查看系统版本&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[root@iZ2zehazvy0emyfm6ab6wuZ /]&lt;span class=&quot;comment&quot;&gt;# lsb_release -a&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;LSB Version:	:core-4.1-amd64:core-4.1-noarch&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Distributor ID:	CentOS&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Description:	CentOS Linux release 7.6.1810 (Core) &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Release:	7.6.1810&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Codename:	Core&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="Git" scheme="http://thepri.github.io/categories/Git/"/>
+    
+    
+      <category term="Git" scheme="http://thepri.github.io/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Win10安装weblogic 10.3.6</title>
+    <link href="http://thepri.github.io/2020/07/30/Win10%E5%AE%89%E8%A3%85weblogic/"/>
+    <id>http://thepri.github.io/2020/07/30/Win10%E5%AE%89%E8%A3%85weblogic/</id>
+    <published>2020-07-30T13:08:10.000Z</published>
+    <updated>2020-10-30T07:56:21.041Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;本次安装版本：weblogic10.3.6&lt;/p&gt;
+&lt;p&gt;第一次安装，因jdk版本不支持1.8以上报错，后来换成了1.6好使了&lt;/p&gt;
+&lt;h2 id=&quot;下载&quot;&gt;&lt;a href=&quot;#下载&quot; class=&quot;headerlink&quot; title=&quot;下载&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://www.oracle.com/middleware/technologies/fusionmiddleware-downloads.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;下载&lt;/a&gt;&lt;/h2&gt;&lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;点击安装包，进入欢迎使用页面，直接点下一步&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;选择中间件的主目录，创建空文件夹就行，这里创建了bea目录，选好目录点下一步&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="http://thepri.github.io/categories/Server/"/>
+    
+    
+      <category term="Server" scheme="http://thepri.github.io/tags/Server/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用GitHub搭建个人博客</title>
+    <link href="http://thepri.github.io/2020/07/30/%E4%BD%BF%E7%94%A8GitHub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://thepri.github.io/2020/07/30/%E4%BD%BF%E7%94%A8GitHub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</id>
+    <published>2020-07-30T13:08:10.000Z</published>
+    <updated>2021-01-12T09:28:54.429Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录2020-07-28日使用github搭建个人博客站&lt;/p&gt;
+&lt;h2 id=&quot;1、创建GitHub账号&quot;&gt;&lt;a href=&quot;#1、创建GitHub账号&quot; class=&quot;headerlink&quot; title=&quot;1、创建GitHub账号&quot;&gt;&lt;/a&gt;1、创建GitHub账号&lt;/h2&gt;&lt;p&gt;创建GitHub账号就没啥含量了，操作就完了&lt;/p&gt;
+&lt;h3 id=&quot;创建仓库&quot;&gt;&lt;a href=&quot;#创建仓库&quot; class=&quot;headerlink&quot; title=&quot;创建仓库&quot;&gt;&lt;/a&gt;创建仓库&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;https://pic.downk.cc/item/5f21886114195aa5949da40a.png&quot; alt=&quot;image-20200729205737744&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="http://thepri.github.io/categories/hexo/"/>
+    
+    
+      <category term="hexo" scheme="http://thepri.github.io/tags/hexo/"/>
+    
+  </entry>
+  
+</feed>

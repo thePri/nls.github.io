@@ -1,0 +1,1026 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Git学习</title>
+    <url>/2020/08/02/Git%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Git是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或大或小的项目</p>
+<p>Git不仅仅是个版本控制系统，它也是内容管理系统，工作管理系统等</p>
+<p>Git与SVN的区别：</p>
+<ol>
+<li>Git是分布式的，SVN不是</li>
+<li>Git把内容按照元数据方式存储，SVN是按文件存储</li>
+<li>Git分支和SVN的分支不同</li>
+<li>Git没有全局的版本号，而SVN有</li>
+<li>Git内容完整性要优于SVN</li>
+</ol>
+<a id="more"></a>
+
+<p>本地仓库有Git维护的三棵”树”组成,这是Git的核心框架.分别是:</p>
+<ol>
+<li>工作区域: 就是平时存放项目代码的地方</li>
+<li>暂存区域: 用于临时存放你的改动,事实上它只是一个文件,保存即将提交的文件列表信息</li>
+<li>Git仓库:就是安全存放数据的位置,这里有提交的所有版本的数据.</li>
+</ol>
+<p>Git的工作流程:</p>
+<ol>
+<li>在工作目录中添加/修改文件</li>
+<li>将需要进行版本管理的文件放入暂存区域</li>
+<li>将暂存区域的文件提交到Git仓库</li>
+</ol>
+<p>HEAD是什么？</p>
+<p>HEAD可以看作是“我”，例如 git log日志中HEAD -&gt; master指的是：我在master分支上</p>
+<h2 id="git分支说明"><a href="#git分支说明" class="headerlink" title="git分支说明"></a>git分支说明</h2><ol>
+<li>Production分支（主线分支用于发版，不会直接更改）</li>
+<li>Develop分支 （开发分支） 主开发分支，包含所有要发布到下一个Release的代码，这个主要用于合并其他分支</li>
+<li>Feature分支（新功能分支）这个分支主要是用来开发一个新功能，一旦开发完成，合并回Develop分支，进入下一个Release</li>
+<li>Release分支（偏向测试） 当你需要发布一个新的Release的时候，基于Develop分支创建一个Release分支，完成Release分支后合并到Master和Develop分支</li>
+<li>Hotfix分支（紧急Bug发布） 在Production发现新Bug时，需要创建一个Hotfix，完成Hotfix后合并回Master和Develop分支，所以Hotfix的改动会进入下一个Release</li>
+</ol>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><ol>
+<li><p>初始化Git</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将文件添加到暂存区域</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 把某文件添加到暂存区</span></span><br><span class="line">$ git add 文件名称  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 把新增、修改的加到暂存区</span></span><br><span class="line">$ git add . </span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加所有修改、已删除的文件到暂存区中</span></span><br><span class="line">$ git add -u [&lt;文件路径&gt;]</span><br><span class="line">$ git add --update [&lt;文件路径&gt;]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加所有修改、已删除、新增的文件到暂存区中，省略 &lt;文件路径&gt; 即为当前目录</span></span><br><span class="line">$ git add -A [&lt;文件路径&gt;]</span><br><span class="line">$ git add --all [&lt;文件路径&gt;]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看所有修改、已删除但没有提交的文件，进入一个子命令系统</span></span><br><span class="line">$ git add -i [&lt;文件路径&gt;]</span><br><span class="line">$ git add --interactive [&lt;文件路径&gt;]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将文件提交到本地仓库</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git commit -m <span class="string">"版本描述"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改上次提交的描述信息</span></span><br><span class="line">$ git commit --amend</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加暂存区并提交</p>
+<p>-a 表示add</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> <span class="comment"># 一步完成提交</span></span><br><span class="line">$ git commit -am <span class="string">"说明"</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="5">
+<li><p>查看当前版本状态（查看是否有未提交的文件）</p>
+<p>On branch 分支名称： 表示当前所在分支</p>
+<p>nothing to commit,working directory clean: 表示工作目录是干净的，没有需要提交的文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status  </span><br><span class="line">On branch master</span><br><span class="line">Untracked files:</span><br><span class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to include <span class="keyword">in</span> what will be committed)</span><br><span class="line"></span><br><span class="line">        LICENSE(红色)</span><br><span class="line"></span><br><span class="line">nothing added to commit but untracked files present (use <span class="string">"git add"</span> to track)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拉取远程仓库的项目</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> 目标地址</span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/thePri/ns.github.io.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>撤销</p>
+<p>当发现commit的内容有错误的时候有两种处理方法：</p>
+<ol>
+<li>修改错误内容再commit一次，但是会留下commit记录</li>
+<li>使用git reset命令撤销这一次错误的commit</li>
+</ol>
+<p>reset有三个模式：</p>
+<p>–head 重置工作区域和暂存区域，也就是说之前没有commit的内容直接擦掉恢复到上一次commit的时候</p>
+<p>–soft 重置工作区域，只是将索引指向重置，暂存区还有本次修改的东西，所以会造成新的差异</p>
+<p>不加参数(mixed) 保留工作区域，清空暂存区域，也就是说工作目录跟暂存区域强行合并了一次，有差异也会放进工作目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git reset</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看git的日志信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输出log</span></span><br><span class="line">$ git <span class="built_in">log</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 简化git日志输出格式</span></span><br><span class="line">$ git <span class="built_in">log</span> oneline </span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制分支图</span></span><br><span class="line">$ git <span class="built_in">log</span> --oneline --decorate --graph --all</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将远程主机的最新内容拉到本地</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将远程最新内容拉到本地，不进行合并</span></span><br><span class="line">$ git fetch origin master </span><br><span class="line"></span><br><span class="line"><span class="comment"># 将远程主机的master分支最新内容拉取到本地当前分支直接合并</span></span><br><span class="line">$ git pull origin master:&lt;本地分支名&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>分支(branch)</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#创建分支</span></span><br><span class="line">$ git branch 分支名称</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改分支名称</span></span><br><span class="line"><span class="comment"># 如果不指定原分支名称则为当前所在分支</span></span><br><span class="line">$ git branch -m [&lt;原分支名称&gt;] &lt;新的分支名称&gt;</span><br><span class="line"><span class="comment"># 强制修改分支名称</span></span><br><span class="line">$ git branch -M [&lt;原分支名称&gt;] &lt;新的分支名称&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出本地的所有分支，当前所在分支以 "*" 标出</span></span><br><span class="line">$ git branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出本地的所有分支并显示最后一次提交，当前所在分支以 "*" 标出</span></span><br><span class="line">$ git branch -v</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>切换分支</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout 分支名称</span><br><span class="line"></span><br><span class="line"><span class="comment"># 适用于切换分支的时候将当前分支内容打包带走，同步到切换的分支下</span></span><br><span class="line"><span class="comment"># 这个命令有两个注意点，1. 两个分支内容不同会造成冲突  2. 切换到新的分支后当前分支修改的内容就丢失了</span></span><br><span class="line">$ git checkout --merge &lt;分支名称&gt;  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 主要要用来比较两个分支之间的差异内容</span></span><br><span class="line">$ git checkout -p &lt;分支名称&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建并切换分支</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 如果有同名分支则会报错</span></span><br><span class="line">$ git checkout -b 分支名称 </span><br><span class="line"></span><br><span class="line"><span class="comment"># -B 强制创建，有同名直接覆盖</span></span><br><span class="line">$ git checkout -B 分支名称 </span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果当前分支累计了N次提交，这个命令会创建一个新的分支有N次提交的内容但是没有提交记录</span></span><br><span class="line">$ git checkout -orphan &lt;分支名称&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 同时删除工作区域和暂存区文件</span></span><br><span class="line">$ git rm </span><br><span class="line"></span><br><span class="line"><span class="comment"># 只删除暂存区，只是想要某文件不被版本控制</span></span><br><span class="line">$ git rm --cached</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重命名文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git mv 旧文件名称 新文件名称</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并分支</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 合并需要切换到master上</span></span><br><span class="line">$ git merge</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除分支</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 如果未合并会有问题</span></span><br><span class="line">$ git branch -d 分支名称 </span><br><span class="line"></span><br><span class="line"><span class="comment"># 强制删除</span></span><br><span class="line">$ git branch -D 分支名称</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>操作远程库</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 列出已经存在的远程仓库</span></span><br><span class="line">$ git remote</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出远程仓库的详细信息，在别名后面列出URL地址</span></span><br><span class="line">$ git remote -v</span><br><span class="line">$ git remote --verbose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加远程仓库</span></span><br><span class="line">$ git remote add &lt;远程仓库的别名&gt; &lt;远程仓库的URL地址&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改远程仓库的别名</span></span><br><span class="line">$ git remote rename &lt;原远程仓库的别名&gt; &lt;新的别名&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除指定名称的远程仓库</span></span><br><span class="line">$ git remote remove &lt;远程仓库的别名&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改远程仓库的 URL 地址</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url &lt;远程仓库的别名&gt; &lt;新的远程仓库URL地址&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将已经提交的记录合并到当前分支</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git cherry-pick &lt;commit id&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从远程仓库获取最新的版本到本地</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将远程仓库所有分支的最新版本全部取回到本地</span></span><br><span class="line">$ git fetch &lt;远程仓库的别名&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将远程仓库指定分支的最新版本取回到本地</span></span><br><span class="line">$ git fetch &lt;远程主机名&gt; &lt;分支名&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>比较版本之间的差异</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 比较当前文件和暂存区中文件的差异，显示没有暂存起来的更改</span></span><br><span class="line">$ git diff</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较暂存区中的文件和上次提交时的差异</span></span><br><span class="line">$ git diff --cached</span><br><span class="line">$ git diff --staged</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较当前文件和上次提交时的差异</span></span><br><span class="line">$ git diff HEAD</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看从指定的版本之后改动的内容</span></span><br><span class="line">$ git diff &lt;commit ID&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较两个分支之间的差异</span></span><br><span class="line">$ git diff &lt;分支名称&gt; &lt;分支名称&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看两个分支分开后各自的改动内容</span></span><br><span class="line">$ git diff &lt;分支名称&gt;...&lt;分支名称&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git diff的时候可能会出现中文乱码的问题，需要设置编码格式</span></span><br><span class="line"><span class="comment"># git diff 快照版本号 快照版本号 可以对比两个历史快照</span></span><br><span class="line">$ git config --global i18n.commitencoding utf-8</span><br><span class="line">$ git config --global i18n.logoutputencoding utf-8</span><br><span class="line">$ <span class="built_in">set</span> LESSCHARSET=utf-8</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="21">
+<li><p>还原提交记录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 重置暂存区，但文件不受影响</span></span><br><span class="line"><span class="comment"># 相当于将用 "git add" 命令更新到暂存区的内容撤出暂存区，可以指定文件</span></span><br><span class="line"><span class="comment"># 没有指定 commit ID 则默认为当前 HEAD</span></span><br><span class="line">$ git reset [&lt;文件路径&gt;]</span><br><span class="line">$ git reset --mixed [&lt;文件路径&gt;]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 HEAD 的指向改变，撤销到指定的提交记录，文件未修改</span></span><br><span class="line">$ git reset &lt;commit ID&gt;</span><br><span class="line">$ git reset --mixed &lt;commit ID&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 HEAD 的指向改变，撤销到指定的提交记录，文件未修改</span></span><br><span class="line"><span class="comment"># 相当于调用 "git reset --mixed" 命令后又做了一次 "git add"</span></span><br><span class="line">$ git reset --soft &lt;commit ID&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 HEAD 的指向改变，撤销到指定的提交记录，文件也修改了</span></span><br><span class="line">$ git reset --hard &lt;commit ID&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成新的提交来撤销某次提交</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git revert &lt;commit id&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>让git忽略某后缀的文件，不再识别</p>
+<p>在工作目录创建一个.gitignore文件,完了再执行git status ,发现指定后缀已经不跟踪状态了。后续要是有不需要跟踪的文件可以再.gitignore里面直接添加该文件的名称</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> *.后缀 &gt; .gitignore</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java线程</title>
+    <url>/2020/10/30/Java%E7%BA%BF%E7%A8%8B/</url>
+    <content><![CDATA[<h4 id="创建线程的方式"><a href="#创建线程的方式" class="headerlink" title="创建线程的方式"></a>创建线程的方式</h4><ol>
+<li>继承Thread类，重新run()方法。 没有返回值。</li>
+<li>实现Runnable接口，重新run()方法。 没有返回值</li>
+<li>实现Callable接口，重写call()方法，利用FutureTask包装Callable，并作为task传入Thread构造函数。 有返回值</li>
+<li>利用线程池</li>
+</ol>
+<a id="more"></a>
+<h4 id="具体的实现"><a href="#具体的实现" class="headerlink" title="具体的实现"></a>具体的实现</h4><ol>
+<li>继承Thread类，重新run()方法。 没有返回值。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Threimp</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">100</span>; i ++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"线程内部输出----&gt;"</span> + i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Threimp im = <span class="keyword">new</span> Threimp();</span><br><span class="line">        im.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Thread类本质上是实现了Runnable接口，Thread对象代表一个线程的实例</li>
+<li>Runnable接口只有一个抽象的run()方法</li>
+<li>启动线程的唯一方法就是通过Thread类的start()方法</li>
+<li>start()方法是一个<strong>native</strong>方法，它将启动一个新线程并执行run()方法</li>
+</ul>
+<ol start="2">
+<li>实现Runnable接口，重写run()方法</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Three</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"Runnable线程内部输出----&gt;"</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将Runnable作为参数传入Thread的构造函数中，创建Thread</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread tf = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Three());</span><br><span class="line">        tf.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="3">
+<li>现Callable接口，重写call()方法</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CallableImpl</span> <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Integer a = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"执行前"</span> + a );</span><br><span class="line">        a = a.intValue() + <span class="number">100</span>;</span><br><span class="line">        System.out.println(<span class="string">"执行后"</span> + a );</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException </span>&#123;</span><br><span class="line">        FutureTask&lt;Integer&gt; task = <span class="keyword">new</span> FutureTask&lt;Integer&gt;(<span class="keyword">new</span> CallableImpl());</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(task);</span><br><span class="line">        thread.start();</span><br><span class="line">        Integer integer = task.get();</span><br><span class="line">        System.out.println(<span class="string">"外部获取返回值："</span> + integer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="4">
+<li>线程池</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadPool</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Runnable.run()"</span>);</span><br><span class="line">        System.out.println(Thread.currentThread().getName());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException </span>&#123;</span><br><span class="line">        ThreadPoolExecutor executor = <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">5</span>,<span class="number">10</span>,<span class="number">200</span>, TimeUnit.MILLISECONDS, <span class="keyword">new</span> ArrayBlockingQueue&lt;Runnable&gt;(<span class="number">20</span>));</span><br><span class="line">        Future future;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            future = executor.submit(<span class="keyword">new</span> ThreadPool());</span><br><span class="line">            System.out.println(<span class="string">"线程返回结果："</span> + future.get());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ol>
+<li>创建线程的方式有4种，有返回值和无返回值</li>
+<li>线程数量小切不需要返回值建议采用实现Runnable接口方式</li>
+<li>需要返回值且线程数小建议采用Callable接口</li>
+<li>线程数较多建议采用线程池，execute提交任务实现无返回值，submit提交任务实现有返回值</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Oracle与MySQL语法上的区别</title>
+    <url>/2021/03/02/Oracle%E4%B8%8EMySQL%E8%AF%AD%E6%B3%95%E4%B8%8A%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<ol>
+<li><p>注释</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- Oracle注释可以--后直接写注释内容</span></span><br><span class="line"><span class="comment">-- MySQL注释在--后必须有一个空格，否则注释不生效</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>日期格式化</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle </span></span><br><span class="line"><span class="keyword">select</span> to_char(<span class="keyword">sysdate</span>,<span class="string">'yyyy-mm-dd hh24-mi-ss'</span>) <span class="keyword">from</span> dual;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">to_date</span>(<span class="keyword">sysdate</span>,<span class="string">'yyyy-mm-dd hh24-mi-ss'</span>) <span class="keyword">from</span> dual;</span><br><span class="line"><span class="comment">-- MySQL</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">date_format</span>(<span class="keyword">sysdate</span>(),<span class="string">'%Y-%m-%d %H:%i:%S'</span>);</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">time_format</span>(<span class="keyword">sysdate</span>(),<span class="string">'%H-%i-%S'</span>);</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">str_to_date</span>(<span class="keyword">sysdate</span>(),<span class="string">'%Y-%m-%d %H-%i-%S'</span>);</span><br></pre></td></tr></table></figure>
+<a id="more"></a></li>
+<li><p>日期函数</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle</span></span><br><span class="line"><span class="keyword">select</span> to_char(add_months(<span class="keyword">to_date</span> (<span class="string">'20000101'</span>,<span class="string">'yyyymmdd'</span>),<span class="number">1</span>),<span class="string">'yyyy-mm-dd'</span>) <span class="keyword">from</span> dual;</span><br><span class="line"><span class="comment">-- MySQL</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">date_add</span>(<span class="string">'2000-01-01'</span>,<span class="built_in">interval</span> <span class="number">1</span> <span class="keyword">month</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符串截取</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">substr</span>(<span class="string">'abcdefg'</span>,<span class="number">1</span>,<span class="number">5</span>) <span class="keyword">from</span> dual;</span><br><span class="line"><span class="comment">-- MySQL</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">substring</span>(<span class="string">'abcdefg'</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">mid</span>(<span class="string">'abcdefg'</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">substring</span>(<span class="string">'abcdefg'</span>,<span class="number">2</span>);</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">substring</span>(<span class="string">'abcdefg'</span> <span class="keyword">from</span> <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>别名</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- mysql所有子查询必须有别名，Oracle不需要</span></span><br><span class="line">Every derived table must have its own alias</span><br><span class="line">每个派生表都必须有自己的别名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符串拼接</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle</span></span><br><span class="line"><span class="keyword">select</span> <span class="string">'hello'</span> || <span class="string">' '</span> || <span class="string">'world'</span> <span class="keyword">from</span> dual;</span><br><span class="line"><span class="comment">-- mysql</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">concat</span>(<span class="string">'hello'</span>,<span class="string">' '</span>,<span class="string">'world'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数据转换</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">decode</span>(<span class="string">'MatchingStatus'</span>,<span class="string">''</span>,<span class="string">'未匹配''MatchingStatus'</span>) <span class="keyword">from</span> dual;</span><br><span class="line"><span class="comment">-- MySQL</span></span><br><span class="line"><span class="keyword">select</span> (<span class="keyword">case</span> <span class="keyword">when</span> <span class="string">'MatchingStatus'</span>=<span class="string">''</span> <span class="keyword">then</span> <span class="string">'未匹配'</span> <span class="keyword">else</span> <span class="string">'MatchingStatus'</span> <span class="keyword">end</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符串转数字</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">   <span class="comment">--oracle</span></span><br><span class="line">   <span class="keyword">select</span> to_number()</span><br><span class="line">   <span class="comment">-- MySQL</span></span><br><span class="line"><span class="comment">-- 1. 直接用加法</span></span><br><span class="line">   <span class="keyword">select</span> * <span class="keyword">from</span> orders <span class="keyword">order</span> <span class="keyword">by</span> (mark+<span class="number">0</span>) <span class="keyword">desc</span></span><br><span class="line">   <span class="comment">-- 2. 使用函数</span></span><br><span class="line">   <span class="keyword">select</span> (<span class="string">''</span>,<span class="keyword">as</span> <span class="keyword">type</span>);</span><br><span class="line">   <span class="keyword">select</span> <span class="keyword">convert</span>(<span class="string">''</span>,<span class="keyword">type</span>);</span><br><span class="line">   <span class="comment">-- type类型：</span></span><br><span class="line">   <span class="comment">-- 浮点数： DECIMAL</span></span><br><span class="line">   <span class="comment">-- 整数：SIGNED</span></span><br><span class="line">   <span class="comment">-- 无符号整数：UNSIGNED</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>列转行拼接</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle </span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">listagg</span>(columnName,<span class="string">','</span>) <span class="keyword">within</span> <span class="keyword">group</span>(<span class="keyword">order</span> <span class="keyword">by</span> orderName <span class="keyword">asc</span>) <span class="keyword">from</span> tableName;</span><br><span class="line"><span class="comment">--oracle,该函数已被Oracle弃用，不建议使用</span></span><br><span class="line"><span class="keyword">select</span> wm_concat(columnName) <span class="keyword">from</span> tableName;</span><br><span class="line"><span class="comment">-- MySQL</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">group_concat</span>(columnName <span class="keyword">order</span> <span class="keyword">by</span> orderColumnName <span class="keyword">asc</span> separator <span class="string">','</span>) <span class="keyword">from</span> tableName;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据id,查询包含该id的所有值</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle</span></span><br><span class="line"><span class="keyword">select</span> menuid <span class="keyword">from</span> menu a <span class="keyword">start</span> <span class="keyword">with</span> a.menuid=<span class="string">''</span> <span class="keyword">connect</span> <span class="keyword">by</span> <span class="keyword">prior</span> upmenuid=menuid;</span><br><span class="line"><span class="comment">-- MySQL</span></span><br><span class="line"><span class="keyword">select</span> menuid <span class="keyword">from</span> menu a <span class="keyword">where</span> a.menuid=<span class="string">''</span> <span class="keyword">union</span></span><br><span class="line"><span class="keyword">select</span> menuid <span class="keyword">from</span> menu b <span class="keyword">where</span> b.upmenuid=<span class="string">''</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字段为空时设置默认值</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle 如果param1为空则返回param2,不为空则返回param1</span></span><br><span class="line"><span class="keyword">select</span> nvl(param1,param2) <span class="keyword">from</span> dual;</span><br><span class="line"><span class="comment">-- MySQL 如果expr1不是null则返回expr1,否则返回expr2</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">ifnull</span>(expr1,expr2);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新或者插入</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle</span></span><br><span class="line"><span class="keyword">MERGE</span> <span class="keyword">INTO</span> A_MERGE A <span class="keyword">USING</span> (<span class="keyword">select</span> B.AID,B.NAME,B.YEAR <span class="keyword">from</span> B_MERGE B) C <span class="keyword">ON</span> (A.id=C.AID)</span><br><span class="line"><span class="keyword">WHEN</span> <span class="keyword">MATCHED</span> <span class="keyword">THEN</span></span><br><span class="line">  <span class="keyword">UPDATE</span> <span class="keyword">SET</span> A.YEAR=C.YEAR <span class="keyword">WHEN</span> <span class="keyword">NOT</span> <span class="keyword">MATCHED</span> <span class="keyword">THEN</span></span><br><span class="line">  <span class="keyword">INSERT</span>(A.ID,A.NAME,A.YEAR) <span class="keyword">VALUES</span>(C.AID,C.NAME,C.YEAR);</span><br><span class="line"><span class="comment">-- MySQL</span></span><br><span class="line"><span class="comment">-- MySQL没有Oracle的merge into 语法，但是有一个on duplicate key update语法（不是标准语法），可以类似实现merge into的功能</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> A_MERGE(<span class="keyword">id</span>,<span class="keyword">name</span>,phone) <span class="keyword">select</span> * <span class="keyword">from</span> B_MERGE <span class="keyword">on</span> <span class="keyword">duplicate</span> <span class="keyword">key</span> <span class="keyword">update</span> <span class="keyword">id</span>=<span class="keyword">values</span>(<span class="keyword">id</span>);</span><br><span class="line"><span class="comment">-- 注意：id字段是主键或者unique索引，不然只会插入所有行</span></span><br><span class="line"><span class="comment">-- 更新部分字段时，插入的记录中其他字段就为空了</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>MySQL与Oracle insert、update别名的区别</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle</span></span><br><span class="line"><span class="comment">--insert:</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tableName <span class="keyword">as</span> <span class="keyword">alias</span>(alias.clumnName1,alias.clumnName)<span class="keyword">values</span>(<span class="string">''</span>,<span class="string">''</span>);</span><br><span class="line"><span class="comment">--update</span></span><br><span class="line"><span class="keyword">update</span> tableName <span class="keyword">as</span> <span class="keyword">alias</span> <span class="keyword">set</span> alias.clumnName=<span class="string">''</span> <span class="keyword">where</span> alias.clumnName=<span class="string">''</span>;</span><br><span class="line"><span class="comment">-- MySQL中insert中不允许使用别名</span></span><br><span class="line"><span class="comment">-- update</span></span><br><span class="line"><span class="keyword">update</span> tableName <span class="keyword">as</span> <span class="keyword">alias</span> <span class="keyword">set</span> alias.clumnName=<span class="string">''</span> <span class="keyword">where</span> alias.clumnName=<span class="string">''</span>;</span><br><span class="line"><span class="comment">-- delete </span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">alias</span> <span class="keyword">from</span> tableName <span class="keyword">where</span> alias.clumnName=<span class="string">''</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>条件语句</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">decode</span>(条件,值<span class="number">1</span>,返回值,值<span class="number">2</span>,返回值,...) <span class="keyword">from</span> dual;</span><br><span class="line"><span class="comment">-- MySQL 没有类似的函数，只能使用case when</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">case</span> <span class="keyword">when</span> 条件=值<span class="number">1</span> <span class="keyword">then</span> 返回值 <span class="keyword">when</span> 条件=值<span class="number">2</span> <span class="keyword">then</span> 返回值<span class="number">2</span> <span class="keyword">else</span> 返回值<span class="number">3</span> <span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>if判断</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle </span></span><br><span class="line">if 表达式 then</span><br><span class="line">...</span><br><span class="line">elsif 表达式 then</span><br><span class="line">...</span><br><span class="line">else</span><br><span class="line">... </span><br><span class="line"><span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line"><span class="comment">-- MySQL既可以作为表达式用，也可在存储过程中作为流程控制语句使用,</span></span><br><span class="line"><span class="comment">-- 存储过程</span></span><br><span class="line">if 表达式 then</span><br><span class="line">...</span><br><span class="line">elseif 表达式 then</span><br><span class="line">...</span><br><span class="line">else</span><br><span class="line">...</span><br><span class="line"><span class="keyword">end</span> <span class="keyword">if</span></span><br><span class="line"><span class="comment">-- 表达式，如果表达式1为true，返回值1，否则返回值2</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">if</span>(表达式<span class="number">1</span>，值<span class="number">1</span>，值<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>存储过程调用</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle中存储过程调用参数中间可以有换行符</span></span><br><span class="line"><span class="keyword">call</span> <span class="keyword">procedure</span>(param1,</span><br><span class="line">               param2,</span><br><span class="line">               param3);</span><br><span class="line"><span class="comment">-- MySQL存储过程调用参数中不能有空格和换行符</span></span><br><span class="line">&#123;call procedure(param1,param2,param3)&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>取第一行</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle </span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> tableName <span class="keyword">as</span> tab <span class="keyword">where</span> <span class="keyword">ROWNUM</span>=<span class="number">1</span>;</span><br><span class="line"><span class="comment">-- MySQL</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> tableName <span class="keyword">limit</span> <span class="number">1</span>;</span><br><span class="line"><span class="keyword">select</span> t.*,@<span class="keyword">rownum</span>:=@<span class="keyword">rownum</span>+<span class="number">1</span> <span class="keyword">as</span> <span class="keyword">rownum</span> <span class="keyword">from</span> tableName t,(<span class="keyword">select</span> @<span class="keyword">rownum</span>:=<span class="number">0</span>) r <span class="keyword">where</span> @<span class="keyword">rownum</span>=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>分组排序等</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle</span></span><br><span class="line"><span class="comment">--排序并添加序号</span></span><br><span class="line"><span class="keyword">select</span> column1,column2,row_number() <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> column1) rs <span class="keyword">from</span> tableName;</span><br><span class="line"><span class="comment">--分组并排序</span></span><br><span class="line"><span class="keyword">select</span> column1,column2,row_number <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> column2 <span class="keyword">order</span> <span class="keyword">by</span> column1);</span><br><span class="line"><span class="comment">-- MySQL</span></span><br><span class="line"><span class="comment">-- 排序并添加序号</span></span><br><span class="line"><span class="keyword">select</span> a.*,@<span class="keyword">rownum</span>:=@<span class="keyword">rownum</span>+<span class="number">1</span> <span class="keyword">as</span> <span class="keyword">rownum</span> <span class="keyword">from</span> </span><br><span class="line">(<span class="keyword">select</span> * <span class="keyword">from</span> tableName <span class="keyword">order</span> <span class="keyword">by</span> clumnName <span class="keyword">desc</span>) a,(</span><br><span class="line"><span class="keyword">select</span> @<span class="keyword">rownum</span>:=<span class="number">0</span>) b</span><br><span class="line"><span class="comment">-- 分组并排序</span></span><br><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">  tion.分组字段名称,</span><br><span class="line">  @<span class="keyword">last</span> := <span class="keyword">IF</span>(@<span class="keyword">first</span> = tion.分组字段名称, @<span class="keyword">last</span> + <span class="number">1</span>, <span class="number">1</span>),</span><br><span class="line">  @<span class="keyword">first</span> := tion.分组字段名称</span><br><span class="line"><span class="keyword">FROM</span> 目标表名称 tion,</span><br><span class="line">     (<span class="keyword">SELECT</span></span><br><span class="line">         @<span class="keyword">last</span> := <span class="number">0</span>,</span><br><span class="line">         @<span class="keyword">first</span> := <span class="literal">NULL</span>) c</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> 分组字段名称, 排序字段名称</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>视图</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--MySQL视图不支持子查询</span></span><br><span class="line">View’s <span class="keyword">SELECT</span> contains a subquery <span class="keyword">in</span> the <span class="keyword">FROM</span> clause</span><br><span class="line"></span><br><span class="line"><span class="comment">--Oracle </span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">or</span> <span class="keyword">replace</span> <span class="keyword">view</span> viewName <span class="keyword">as</span> <span class="keyword">select</span> * <span class="keyword">from</span> (<span class="keyword">select</span> column1,column2 <span class="keyword">from</span> tableName);</span><br><span class="line"><span class="comment">-- mysql</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">view</span> <span class="keyword">if</span> <span class="keyword">exists</span> viewName;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">or</span> <span class="keyword">replace</span> <span class="keyword">view</span> viewName <span class="keyword">as</span> <span class="keyword">select</span> * <span class="keyword">from</span> tableName;</span><br><span class="line"><span class="comment">--可以做个中间视图</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一个表数据更新另一张表的数据</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle</span></span><br><span class="line"><span class="keyword">update</span> tableName1 tn <span class="keyword">set</span> (tn.column1,tn.column2,tn.column3)=(<span class="keyword">select</span> tm.column1,tm.column2,tm.column3 <span class="keyword">from</span> tableName2 tm <span class="keyword">where</span> tn.columnId=tm.columnId <span class="keyword">and</span> tm.column4=<span class="string">''</span>) <span class="keyword">where</span> tn.column4=<span class="string">''</span>;</span><br><span class="line"><span class="comment">-- MySQL</span></span><br><span class="line"><span class="keyword">update</span> tableName1 tn <span class="keyword">inner</span> <span class="keyword">join</span> (<span class="keyword">select</span> tm.column1,tm.column2,tm.column3,tm.columnId,tm.column4 <span class="keyword">from</span> tableName2) a <span class="keyword">on</span> tn.columnId=a.columnId <span class="keyword">and</span> a.column4=<span class="string">''</span> <span class="keyword">set</span> tn.column1=a.column1,tn.column2=a.column2,tn.column3=a.column3 <span class="keyword">where</span> tn.column4=<span class="string">''</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>varchar、varchar2</p>
+<ul>
+<li>varchar计算的是字符数</li>
+<li>varchar2计算的是字节数</li>
+</ul>
+<p>mysql中一个汉字占三个字节，Oracle中一个汉字占两个字节</p>
+</li>
+<li><p>null和’’</p>
+<ul>
+<li>Oracle中null和’’是一样的</li>
+<li>MySQL中null是null，’’是’’，不一样</li>
+</ul>
+</li>
+<li><p>date时间类型问题</p>
+<p>Oracle中date类型可以包含时分秒，MySQL中date没有时分秒，有时分秒需要使用datetime</p>
+</li>
+<li><p>函数创建</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle</span></span><br><span class="line"><span class="keyword">create</span> [<span class="keyword">or</span> <span class="keyword">replace</span>] <span class="keyword">function</span> funcName([param]) <span class="keyword">return</span> resultType <span class="keyword">as</span>|<span class="keyword">is</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line"><span class="keyword">return</span> <span class="keyword">result</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"><span class="comment">-- MySQL</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">function</span> funcName(param) <span class="keyword">returns</span> dataType</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line"><span class="keyword">return</span> <span class="keyword">result</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数中变量赋值</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle</span></span><br><span class="line">a:='';</span><br><span class="line"><span class="comment">-- MySQL</span></span><br><span class="line"><span class="keyword">set</span> a=<span class="string">''</span>;</span><br><span class="line"><span class="comment">--共有的赋值方式</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sysdate</span> <span class="keyword">into</span> times <span class="keyword">from</span> dual;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>声明</p>
+<ul>
+<li><p>MySQL声明在函数体中，也就是在begin之后，用declare关键字</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">declare</span> stemp <span class="built_in">varchar</span>(<span class="number">4000</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Oracle声明写在as或者is之后，begin之前，不用declare</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">stemp varchar(4000);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在Oracle中as和is是没有区别的</p>
+</li>
+</ul>
+</li>
+<li><p>游标</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle </span></span><br><span class="line"><span class="comment">--声明游标 select后不能接into</span></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">cursor</span> 游标名 <span class="keyword">is</span> <span class="keyword">select</span> param1,param2 <span class="keyword">from</span> tableName;</span><br><span class="line"><span class="comment">--打开游标</span></span><br><span class="line">open 游标名</span><br><span class="line"><span class="comment">--提取数据</span></span><br><span class="line">fetch 游标名 into 变量名1，变量名2；</span><br><span class="line"><span class="comment">--关闭游标</span></span><br><span class="line">close 游标名</span><br><span class="line"></span><br><span class="line"><span class="comment">--MySQL</span></span><br><span class="line"><span class="comment">-- 定义</span></span><br><span class="line"><span class="keyword">declare</span> 游标名称 <span class="keyword">cursor</span> <span class="keyword">for</span> 查询语句</span><br><span class="line"><span class="comment">-- 打开游标</span></span><br><span class="line"><span class="keyword">open</span> 游标名称</span><br><span class="line"><span class="comment">-- 取值</span></span><br><span class="line"><span class="keyword">fetch</span> 游标名称 info var_name[,var_name]...</span><br><span class="line"><span class="comment">-- 关闭游标</span></span><br><span class="line"><span class="keyword">close</span> 游标名称</span><br><span class="line"><span class="comment">-- 释放游标</span></span><br><span class="line"><span class="keyword">deallocate</span> 游标名称</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>循环</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--oracle</span></span><br><span class="line"><span class="comment">--loop</span></span><br><span class="line"><span class="keyword">declare</span> i <span class="built_in">number</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	i:=<span class="number">0</span>;</span><br><span class="line">	loop</span><br><span class="line">		exit when(i&gt;5);</span><br><span class="line">		dbms_output.put_line(i);</span><br><span class="line">		i:=i+1;</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">loop</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"><span class="comment">--while</span></span><br><span class="line"><span class="keyword">declare</span> i <span class="built_in">number</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	i:=<span class="number">0</span>;</span><br><span class="line">	while i&lt;5 loop</span><br><span class="line">		i:=i+1;</span><br><span class="line">		dbms_output.put_line(i);</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">loop</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"><span class="comment">--for</span></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">cursor</span> userRows <span class="keyword">is</span> <span class="keyword">select</span> * <span class="keyword">from</span> emp;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">for</span> userRow <span class="keyword">in</span> userRows</span><br><span class="line">	<span class="keyword">loop</span></span><br><span class="line">		dbms_output.put_line(userRow.ENAME);</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">loop</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- mysql</span></span><br><span class="line"><span class="comment">-- while</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">declare</span> i <span class="built_in">int</span> <span class="keyword">default</span> <span class="number">0</span>;</span><br><span class="line">	while i&lt;=10 do</span><br><span class="line">		<span class="keyword">set</span> i=i+<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">while</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"><span class="comment">-- loop</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">declare</span> i <span class="built_in">int</span> <span class="keyword">default</span> <span class="number">0</span>;</span><br><span class="line">	loop_name:loop</span><br><span class="line">		if i&gt;=10 then leave loop_name;</span><br><span class="line">		<span class="keyword">set</span> i=i+<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">loop</span></span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"><span class="comment">-- repeat</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">declare</span> i <span class="built_in">int</span> <span class="keyword">default</span> <span class="number">0</span>;</span><br><span class="line">    repeat </span><br><span class="line">        <span class="keyword">set</span> i=i+<span class="number">1</span>;</span><br><span class="line">    until i&gt;=10 end repeat;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySql安装</title>
+    <url>/2020/11/27/MySql%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p><a href="https://www.mysql.com/" target="_blank" rel="noopener">官网地址</a>     <a href="https://cpv2.mairuan.com/formysql.com/trial/navicat_premium_trial_64.exe" target="_blank" rel="noopener">navicat下载</a></p>
+<h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><ol>
+<li><p>访问官网翻到最下面，在DOWNLOADS里点击MySQL Community Server(社区版本)</p>
+<p><img src="https://pic.downk.cc/item/5fc0b41d15e77190845f1820.png" alt="image-20201127111330924"></p>
+<a id="more"></a>
+</li>
+<li><p>选择下载页面，选择windows系统、根据电脑位数选择（32位/64位），点击Download</p>
+<p><img src="https://pic.downk.cc/item/5fc0b43a15e77190845f2b21.png" alt="image-20201127111807790"></p>
+</li>
+<li><p>不用登录，直接下载</p>
+<p><img src="https://pic.downk.cc/item/5fc0b47c15e77190845f4108.png" alt="image-20201127111931703"></p>
+</li>
+</ol>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><ol start="4">
+<li><p>下载完成后将压缩包解压到一个新的文件夹下。</p>
+<p>mysql安装分为两种，一种是msi格式的，一种是zip格式，这里使用zip格式，解压后会得到一个文件夹。解压后进行一下配置就可以使用了</p>
+</li>
+<li><p>配置环境变量，解压后的文件夹下会有一个bin目录，将这个目录配置到环境变量里</p>
+<p>右键我的电脑–&gt;属性–&gt;高级–&gt;环境变量</p>
+<p>在系统变量下找到Path选中编辑，完成后点击确定。（注意：不要更改或者删除原有配置，win7系统编辑时在字符串最后要加英文的分号）</p>
+<p>win7:</p>
+<p><img src="https://pic.downk.cc/item/5fc0b4a015e77190845f4db5.png" alt="image-20201127113710367"></p>
+<p>win10:</p>
+<p><img src="https://pic.downk.cc/item/5fc0b4bb15e77190845f59cd.png" alt="image-20201127113449195"></p>
+</li>
+<li><p>因为在最新版本中的zip中没有my.ini文件，需要自己新建一个my.ini文件,以下内容根据自己的安装路径。</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="attr">port</span>  = <span class="number">3306</span></span><br><span class="line"><span class="comment"># 设置mysql的安装目录</span></span><br><span class="line"><span class="attr">basedir</span>=D:\\Application\\MySQL\\mysql-<span class="number">8.0</span>.<span class="number">22</span>-winx64</span><br><span class="line"><span class="comment"># 设置mysql数据库的数据的存放目录，必须是data，或者是\\xxx-data</span></span><br><span class="line"><span class="attr">datadir</span>=D:\\Application\\MySQL\\mysql-<span class="number">8.0</span>.<span class="number">22</span>-winx64\\data</span><br><span class="line"><span class="comment">#innodb_log_arch_dir 默认datadir</span></span><br><span class="line"><span class="comment">#innodb_log_group_home_dir  默认datadir</span></span><br><span class="line"><span class="comment"># 设置mysql服务器的字符集，默认编码</span></span><br><span class="line"><span class="attr">loose-character-set-server</span>=utf8</span><br><span class="line"></span><br><span class="line"><span class="comment">#连接数的操作系统监听队列数量，如果经常出现“拒绝连接”错误可适当增加此值</span></span><br><span class="line"><span class="attr">back_log</span> = <span class="number">50</span></span><br><span class="line"><span class="comment">#不使用接听TCP / IP端口方法，mysqld通过命名管道连接</span></span><br><span class="line"><span class="comment">#skip-networking</span></span><br><span class="line"><span class="comment"># 最大连接数量</span></span><br><span class="line"><span class="attr">max_connections</span> = <span class="number">100</span></span><br><span class="line"><span class="comment">#打开表的线程数量限定，最大4096，除非用mysqld_safe打开限制</span></span><br><span class="line"><span class="attr">table_open_cache</span> = <span class="number">2048</span></span><br><span class="line"><span class="comment">#MySql 服务接收针对每个进程最大查询包大小</span></span><br><span class="line"><span class="attr">max_allowed_packet</span> = <span class="number">16</span>M</span><br><span class="line"><span class="comment">#作用于SQL查询单笔处理使用的内存缓存，如果一笔操作的二进制数据超过了限定大小，将会在磁盘上开辟空间处理，一般设为 1-2M即可，默认1M</span></span><br><span class="line"><span class="attr">binlog_cache_size</span> = <span class="number">2</span>M</span><br><span class="line"><span class="comment">#单个内存表的最大值限定</span></span><br><span class="line"><span class="attr">max_heap_table_size</span> = <span class="number">64</span>M</span><br><span class="line"><span class="comment">#为每个线程分配的排序缓冲大小</span></span><br><span class="line"><span class="attr">sort_buffer_size</span> = <span class="number">8</span>M</span><br><span class="line"><span class="comment">#join 连表操作的缓冲大小,根据实际业务来设置，默认8M</span></span><br><span class="line"><span class="attr">join_buffer_size</span> = <span class="number">32</span>M</span><br><span class="line"><span class="comment">#操作多少个离开连接的线程的缓存</span></span><br><span class="line"><span class="attr">thread_cache_size</span> = <span class="number">8</span></span><br><span class="line"><span class="comment">#设置加全文检索中的最小单词长度。</span></span><br><span class="line"><span class="comment">#ft_min_word_len = 4</span></span><br><span class="line"><span class="comment">#CREATE TABLE 语句的默认表类型，如果不自己指定类型，则使用下行的类型</span></span><br><span class="line"><span class="attr">default-storage-engine</span> = InnoDB</span><br><span class="line"><span class="comment">#线程堆栈大小，mysql说它自己用的堆栈大小不超过64K。这个值可适当设高一点（在RCA的项目中都是共用同一个数据库连接的），默认192K</span></span><br><span class="line"><span class="attr">thread_stack</span> = <span class="number">800</span>K</span><br><span class="line"><span class="comment">#设置事务处理的级别,默认 REPEATABLE-READ，一般用它就即可，以下二行按顺序对应，</span></span><br><span class="line"><span class="comment">#可读写未提交的数据，创建未提交的数据副本读写，未提交之前可读不可写，只允许串行序列招行事务。</span></span><br><span class="line"><span class="comment"># READ-UNCOMMITTED, READ-COMMITTED, REPEATABLE-READ, SERIALIZABLE</span></span><br><span class="line"><span class="attr">transaction_isolation</span> = REPEATABLE-READ</span><br><span class="line"><span class="comment">#单一内存临时表在内存中的大小，超过此值自动转换到磁盘操作</span></span><br><span class="line"><span class="attr">tmp_table_size</span> = <span class="number">64</span>M</span><br><span class="line"><span class="comment">#启动二进制日志功能，可通过它实现时间点恢复最新的备份</span></span><br><span class="line"><span class="comment">#log-bin=mysql-bin</span></span><br><span class="line"><span class="comment">#二进制日志格式，对就上一条，-建议混合格式</span></span><br><span class="line"><span class="comment">#binlog_format=mixed</span></span><br><span class="line"><span class="comment">#转换查询为缓慢查询</span></span><br><span class="line">slow_query_log</span><br><span class="line"><span class="comment">#对应上一条，如果一个查询超过了下条设定的时间则执行上一条。</span></span><br><span class="line"><span class="attr">long_query_time</span> = <span class="number">2</span></span><br><span class="line"><span class="comment">#自定义主机ID识别符，用于主从或多服务器之间识别，为 一个 int 类型</span></span><br><span class="line"><span class="attr">server-id</span> = <span class="number">1</span></span><br><span class="line"><span class="comment">#一般用来缓存MyISAM表的主键，也用于临时的磁盘表缓存主键，上面多次出现临时磁盘表，所以就算不用MyISAM也最好为其设置一个不小的值，默认32M</span></span><br><span class="line"><span class="attr">key_buffer_size</span> = <span class="number">64</span>M</span><br><span class="line"><span class="comment">#全表扫描MyISAM表时的缓存，每个线程拥有下行的大小。</span></span><br><span class="line"><span class="attr">read_buffer_size</span> = <span class="number">2</span>M</span><br><span class="line"><span class="comment">#排序操作时与磁盘之间的缓存，分到每个线程，默认16M</span></span><br><span class="line"><span class="attr">read_rnd_buffer_size</span> = <span class="number">24</span>M</span><br><span class="line"><span class="comment">#MyISAM使用特殊树形进行批量插入时的缓存，如insert ... values(..)(..)(..)</span></span><br><span class="line"><span class="attr">bulk_insert_buffer_size</span> = <span class="number">64</span>M</span><br><span class="line"><span class="comment">#MyISAM索引文件的最大限定，</span></span><br><span class="line"><span class="attr">myisam_max_sort_file_size</span> = <span class="number">10</span>G</span><br><span class="line"><span class="comment">#如果一个myisam表有一个以上的索引， MyISAM可以使用一个以上线程来排序并行它们。较耗硬件资源，如果你的环境不错，可以增加此值。</span></span><br><span class="line"><span class="attr">myisam_repair_threads</span> = <span class="number">2</span></span><br><span class="line"><span class="comment"># *** INNODB Specific options ***</span></span><br><span class="line"><span class="comment">#开启下条将会禁用 INNODB</span></span><br><span class="line"><span class="comment">#skip-innodb</span></span><br><span class="line"><span class="comment">#innodb整体缓冲池大小，不宜过大，设为本地内存的 50%-75% 比较合适,在本机开发过程中可以设得较小一点如 64M,256M</span></span><br><span class="line"><span class="attr">innodb_buffer_pool_size</span> = <span class="number">256</span>M</span><br><span class="line"><span class="comment">#InnoDB的数据存储在一个或多个数据文件组成的表空间</span></span><br><span class="line"><span class="attr">innodb_data_file_path</span> = ibdata1:<span class="number">10</span>M:autoextend</span><br><span class="line"><span class="comment">#线程数内允许的InnoDB内核,不宜太高</span></span><br><span class="line"><span class="attr">innodb_thread_concurrency</span> = <span class="number">16</span></span><br><span class="line"><span class="comment">#InnoDB的事务日志快存行为,默认为 1，为0可减轻磁盘I/0操作，还有以为2</span></span><br><span class="line"><span class="attr">innodb_flush_log_at_trx_commit</span> = <span class="number">1</span></span><br><span class="line"><span class="comment">#InnoDB的用于的缓冲日志数据的大小</span></span><br><span class="line"><span class="attr">innodb_log_buffer_size</span> = <span class="number">8</span>M</span><br><span class="line"><span class="comment">#日志文件，可设置为25%-90%的总体缓存大小，默认 256M. 修改此项要先删除datadir\ib_logfileXXX</span></span><br><span class="line"><span class="attr">innodb_log_file_size</span> = <span class="number">256</span>M</span><br><span class="line"><span class="comment">#日志组数量，默认为3</span></span><br><span class="line"><span class="attr">innodb_log_files_in_group</span> = <span class="number">3</span></span><br><span class="line"><span class="comment">#InnoDB的日志文件位置。默认是MySQL的datadir</span></span><br><span class="line"><span class="comment">#innodb_log_group_home_dir</span></span><br><span class="line"><span class="comment">#InnoDB最大允许的脏页缓冲池的百分比，默认90</span></span><br><span class="line"><span class="attr">innodb_max_dirty_pages_pct</span> = <span class="number">80</span></span><br><span class="line"><span class="comment">#事务死锁超时设定</span></span><br><span class="line"><span class="attr">innodb_lock_wait_timeout</span> = <span class="number">120</span></span><br><span class="line"></span><br><span class="line"><span class="section">[client]</span></span><br><span class="line"><span class="comment"># 设置mysql客户端的字符集</span></span><br><span class="line"><span class="attr">loose-character-set-server</span>=utf8</span><br><span class="line"></span><br><span class="line"><span class="section">[mysqldump]</span></span><br><span class="line">quick</span><br><span class="line"><span class="attr">max_allowed_packet</span> = <span class="number">16</span>M</span><br><span class="line"></span><br><span class="line"><span class="section">[mysql]</span></span><br><span class="line">no-auto-rehash</span><br><span class="line"></span><br><span class="line"><span class="comment"># Only allow UPDATEs and DELETEs that use keys.</span></span><br><span class="line"><span class="comment">#safe-updates</span></span><br><span class="line"></span><br><span class="line"><span class="section">[WinMySQLAdmin]</span></span><br><span class="line"><span class="comment"># 指定mysql服务启动启动的文件</span></span><br><span class="line"><span class="attr">Server</span>=D:\\Application\\MySQL\\mysql-<span class="number">8.0</span>.<span class="number">22</span>-winx64\\bin\\mysqld.exe</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化mysql</p>
+<p>以管理员身份运行cmd(注意：一定要用管理员模式，不然权限不够),</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">##将目录切换到mysql的bin目录，或者在文件夹的地址栏直接输入cmd回车进入cmd</span></span><br><span class="line">&gt; <span class="built_in">cd</span> D:\Application\MySQL\mysql-8.0.22-winx64\bin</span><br><span class="line"><span class="comment">## 初始化安装mysql,初始化完成后会输出A temporary password is generated for root@localhost，后面就是初始密码。</span></span><br><span class="line">&gt; mysqld --initialize --console</span><br><span class="line">2020-11-27T07:07:11.500052Z 0 [System] [MY-013169] [Server] D:\Application\MySQL\mysql-8.0.22-winx64\bin\mysqld.exe (mysqld 8.0.22) initializing of server <span class="keyword">in</span> progress as process 13308</span><br><span class="line">2020-11-27T07:07:11.501149Z 0 [Warning] [MY-013242] [Server] --character-set-server: <span class="string">'utf8'</span> is currently an <span class="built_in">alias</span> <span class="keyword">for</span> the character <span class="built_in">set</span> UTF8MB3, but will be an <span class="built_in">alias</span> <span class="keyword">for</span> UTF8MB4 <span class="keyword">in</span> a future release. Please consider using UTF8MB4 <span class="keyword">in</span> order to be unambiguous.</span><br><span class="line">2020-11-27T07:07:11.523063Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.</span><br><span class="line">2020-11-27T07:07:12.592780Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.</span><br><span class="line">2020-11-27T07:07:14.060740Z 6 [Note] [MY-010454] [Server] A temporary password is generated <span class="keyword">for</span> root@localhost: T&gt;k%jFWYT3ir</span><br><span class="line"><span class="comment">## 安装mysql服务</span></span><br><span class="line">&gt; mysqld install</span><br><span class="line">Service successfully installed.</span><br><span class="line"><span class="comment">## 启动mysql服务</span></span><br><span class="line">&gt; net start mysql</span><br><span class="line">MySQL 服务正在启动 .</span><br><span class="line">MySQL 服务已经启动成功。</span><br><span class="line"><span class="comment">## 登录mysql,这时会提示输入密码就是初始密码</span></span><br><span class="line">&gt; mysql -u root -p</span><br><span class="line">mysql: [Warning] unknown variable <span class="string">'loose-character-set-server=utf8'</span>.</span><br><span class="line">Enter password: ************</span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 10</span><br><span class="line">Server version: 8.0.22</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type <span class="string">'help;'</span> or <span class="string">'\h'</span> <span class="keyword">for</span> <span class="built_in">help</span>. Type <span class="string">'\c'</span> to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt;</span><br><span class="line"><span class="comment">## 修改初始密码</span></span><br><span class="line">mysql&gt; use mysql</span><br><span class="line">mysql&gt; ALTER USER root@localhost IDENTIFIED BY </span><br><span class="line"><span class="string">'123456'</span>;</span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"><span class="comment">##到这里就安装完成了</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装桌面客户端</p>
+<p>大多数都会用一个navicat来连接数据库，可以从官网上下载，上面也有下载地址，都是中文，安装选择安装路径后一直下一步就行</p>
+</li>
+<li><p>navicat登录mysql</p>
+<p>点击连接选择MySql</p>
+<p>连接名可以随意填，ip或主机地址可以填localhost或者127.0.0.1，端口默认3306，安装时my.ini的port是多少就是多少，用户名root,密码是上面改后的密码123456，没改就是初始密码,完成后点击测试链接，提示连接成功后点击确定</p>
+<img src="https://pic.downk.cc/item/5fc0b4d015e77190845f622d.png" alt="image-20201127160350001" style="zoom:50%;" />
+
+<img src="https://pic.downk.cc/item/5fc0b4e615e77190845f6a08.png" alt="image-20201127160505559" style="zoom:50%;" />
+
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Mysql</category>
+      </categories>
+      <tags>
+        <tag>MySql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Oracle PLSQL执行计划学习记录</title>
+    <url>/2020/08/13/Oracle-PLSQL%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h2 id="1-什么是执行计划"><a href="#1-什么是执行计划" class="headerlink" title="1. 什么是执行计划"></a>1. 什么是执行计划</h2><p>对一个查询任务，做出一份怎样完成任务的详细方案。Sql是一种傻瓜式语言，每一个条件就是一个需求，访问的顺序不同就形成了不同的执行计划，Oracle必须做出选择，一次只能有一种访问路径，一个访问路径就是一个执行计划</p>
+<a id="more"></a>
+
+<h2 id="2-怎么查看执行计划"><a href="#2-怎么查看执行计划" class="headerlink" title="2. 怎么查看执行计划"></a>2. 怎么查看执行计划</h2><p>在sql窗口执行完一条SQL后按F5即可查看这条sql的执行计划</p>
+<p><img src="https://pic.downk.cc/item/5f42455a160a154a675c7fef.png" alt="image-20200814161656769"></p>
+<h2 id="3-配置执行计划窗口"><a href="#3-配置执行计划窗口" class="headerlink" title="3. 配置执行计划窗口"></a>3. 配置执行计划窗口</h2><p>plsql中选择： 工具–&gt; 首选项 –&gt; 窗口类型 –&gt;  计划窗口</p>
+<p>根据需要选择在执行计划窗口要显示的列</p>
+<p><img src="https://pic.downk.cc/item/5f424546160a154a675c75ae.png" alt="image-20200814160948039"></p>
+<h2 id="4-常用列字段解释"><a href="#4-常用列字段解释" class="headerlink" title="4. 常用列字段解释"></a>4. 常用列字段解释</h2><p>Description：下面的内容分别是整条SQL的执行步骤，缩进最多的最先执行，缩进量相同，则按照从上往下的顺序执行。</p>
+<p>对象所有者(Object owner)</p>
+<p>对象名称(Object name)</p>
+<p>耗费(COST)\CPU耗费: Oracle估计的该步骤执行的成本,用于说明SQL执行的代价,理论上越小越好</p>
+<p> 基数(Rows): Oracle估计的当前操作返回的结果集行数</p>
+<p>字节(Bytes): 执行该步骤后返回的字节数</p>
+<p>时间(Time): Oracle估计当前操作需要的时间</p>
+<h2 id="5-Description动作的说明"><a href="#5-Description动作的说明" class="headerlink" title="5. Description动作的说明"></a>5. Description动作的说明</h2><ol>
+<li><p>TABLE ACCESS FULL: 全表扫描</p>
+<p>Oracle会读取表中所有的行,并检查每一行是否满足SQL语句中的where条件</p>
+</li>
+<li><p>TABLE ACCESS BY ROWID: 通过ROWID的表存区 </p>
+<p>Rowid: Oracle数据库的表中每一行数据都有一个唯一的标识符,或者称为ROWID,在Oracle内部通常就是使用它来访问数据的.ROWID需要10个字节的存储空间,并用18个字符来显示,该值表明了该行在Oracle数据库中物理具体位置.具体内容请点<a href="https://blog.csdn.net/qq_36249352/article/details/79494162" target="_blank" rel="noopener">传送门</a></p>
+</li>
+<li><p>TABLE ACCESS BY INDEX SCAN: (索引扫描)</p>
+<p>在索引块中,既存储每个索引的键值,也存储具有该键值的行的ROWID</p>
+<p>所以索引扫描分为两步:</p>
+<ol>
+<li>扫描索引得到对应的ROWID</li>
+<li>通过ROWID定位到具体的行读取数据.</li>
+</ol>
+</li>
+</ol>
+<h2 id="6-索引扫描"><a href="#6-索引扫描" class="headerlink" title="6. 索引扫描"></a>6. 索引扫描</h2><ol>
+<li><p>INDEX UNIQUE SCAN: 索引唯一扫描</p>
+<p>针对唯一性索引（UNIQUE INDEX）的扫描，每次最多只返回一条记录</p>
+</li>
+<li><p>INDEX RANGE SCAN: 索引范围扫描</p>
+<p>使用一个索引存取多行数据；发生索引范围扫描的三种情况：</p>
+<ol>
+<li>在唯一索引上使用了范围操作符（如：&gt; &lt; &lt;&gt; &gt;= &lt;= between）</li>
+<li>在组合索引上，只使用部分列进行查询</li>
+<li>对非唯一索引列上进行的任何查询</li>
+</ol>
+</li>
+<li><p>INDE FULL SCAN: 索引全扫描</p>
+<p>进行全索引扫描时查出的数据都必须从索引中可以直接得到</p>
+</li>
+<li><p>INDEX FAST FULL SCAN: 索引快速扫描</p>
+<p>与INDEX FULL SCAN相似，但是索引快速扫描不会对查询出的数据进行排序</p>
+</li>
+<li><p>INDEX SKIP SCAN: 索引跳跃扫描</p>
+<p>有时候复合索引的前导列（索引包含的第一列）没有在查询语句中出现，oralce也会使用该复合索引，这时候就使用的INDEX SKIP SCAN;</p>
+</li>
+</ol>
+<h2 id="7-表的连接方式（JOIN）"><a href="#7-表的连接方式（JOIN）" class="headerlink" title="7. 表的连接方式（JOIN）"></a>7. 表的连接方式（JOIN）</h2><ol>
+<li>SORT MERGE JOIN(排序-合并连接)</li>
+<li>NESTED LOOPS(嵌套循环)</li>
+<li>HASH JOIN(哈希连接)</li>
+<li>CARTESIAN PRODUCT(笛卡尔积)</li>
+</ol>
+]]></content>
+      <categories>
+        <category>oracle</category>
+      </categories>
+      <tags>
+        <tag>Oracle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Oracle常用函数</title>
+    <url>/2020/09/20/Oracle%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<h4 id="1-ASCII"><a href="#1-ASCII" class="headerlink" title="1. ASCII"></a>1. ASCII</h4><p>返回指定字符对应的十进制数；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select ascii(&#39;A&#39;) A,ascii(&#39;a&#39;) a,ascii(&#39;0&#39;) zero,ascii(&#39; &#39;) space from dual;</span><br><span class="line">--返回： A:65  a:97  zero:48  space:32</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h4 id="2-CHR"><a href="#2-CHR" class="headerlink" title="2. CHR"></a>2. CHR</h4><p>根据十进制数返回对应的字符</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select chr(54740) zhao,chr(65) chr65 from dual</span><br><span class="line">--返回： zhao:赵   chr65:65</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-CONCAT"><a href="#3-CONCAT" class="headerlink" title="3. CONCAT"></a>3. CONCAT</h4><p>连接两个字符串</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select concat(&#39;010-&#39;,&#39;88888888&#39;)||&#39;转23&#39; 电话 from dual;</span><br><span class="line">--返回： 010-88888888转23</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-INITCAP"><a href="#4-INITCAP" class="headerlink" title="4. INITCAP"></a>4. INITCAP</h4><p>返回字符串并将字符串的第一个字母变为大写</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select initcap(&#39;smith&#39;) upp from dual;</span><br><span class="line">--返回： upp:Smith</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-INSTR-c1-c2-I-J"><a href="#5-INSTR-c1-c2-I-J" class="headerlink" title="5. INSTR(c1,c2.I,J)"></a>5. INSTR(c1,c2.I,J)</h4><p>在一个字符串中搜索指定的字符，返回发现指定字符的位置</p>
+<p>C1: 被搜索的字符串</p>
+<p>C2: 希望搜索的字符串</p>
+<p>I: 搜索的开始位置，默认为1</p>
+<p>J: 出现的位置，默认为1</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select instr(&#39;oracle traning&#39;,&#39;ra&#39;,1,2) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-LENGTH"><a href="#6-LENGTH" class="headerlink" title="6. LENGTH"></a>6. LENGTH</h4><p>返回字符串的长度</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select length(&#39;百度一下&#39;)，length(&#39;9999.99&#39;) from dual;</span><br><span class="line">-- 返回： 4 7</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-LOWER"><a href="#7-LOWER" class="headerlink" title="7. LOWER"></a>7. LOWER</h4><p>返回字符串，并将所有的字符小写</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select lower(&#39;AaBbCcDd&#39;) from dual;</span><br><span class="line">--返回： aabbccdd</span><br></pre></td></tr></table></figure>
+
+<h4 id="8-UPPER"><a href="#8-UPPER" class="headerlink" title="8. UPPER"></a>8. UPPER</h4><p>返回字符串，并将所有字符大写</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select upper(AaBbCcDd) from dual;</span><br><span class="line">-- 返回： AABBCCDD</span><br></pre></td></tr></table></figure>
+
+<h4 id="9-RPAD和LPAD"><a href="#9-RPAD和LPAD" class="headerlink" title="9. RPAD和LPAD"></a>9. RPAD和LPAD</h4><p>RPAD:在列的右边粘贴字符</p>
+<p>LPAD:在列的左边粘贴字符</p>
+<p>gao表示要粘贴的字符，10表示有10个字符的位置，<em>表示不够用</em>来代替</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select lpad(rpad(&#39;gao&#39;,10,&#39;*&#39;),17,&#39;-&#39;)from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="10-LTRIM和RTRIM"><a href="#10-LTRIM和RTRIM" class="headerlink" title="10. LTRIM和RTRIM"></a>10. LTRIM和RTRIM</h4><p>LTRIM： 删除左边出现的字符串</p>
+<p>RTRIM： 删除右边出现的字符串</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select ltrim(rtrim(&#39;  删除右边出,现的字符串,salfibcal &#39;,&#39; &#39;),&#39;,&#39;) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="11-SUBSTR-String-start-count"><a href="#11-SUBSTR-String-start-count" class="headerlink" title="11. SUBSTR(String,start,count)"></a>11. SUBSTR(String,start,count)</h4><p>截取字符串，从start开始，取count个,从第三个开始取</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select substr(&#39;123456789&#39;,3,5) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="12-REPLACE-‘string’-’s1’-’s2’"><a href="#12-REPLACE-‘string’-’s1’-’s2’" class="headerlink" title="12. REPLACE(‘string’,’s1’,’s2’)"></a>12. REPLACE(‘string’,’s1’,’s2’)</h4><p>替换字符串</p>
+<p>string： 字符串</p>
+<p>s1： 被替换的字符串</p>
+<p>s2： 要替换的字符串</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select replace(&#39;当时就觉得是客户跟进当时就觉得&#39;,&#39;就觉得&#39;,&#39;1&#39;) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="13-SOUDEX"><a href="#13-SOUDEX" class="headerlink" title="13. SOUDEX"></a>13. SOUDEX</h4><p>返回一个与给定字符串读音相同的字符串</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select columnName from tableName where soundex(columnName) &#x3D; soundex(&#39;字符串&#39;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="14-ABS"><a href="#14-ABS" class="headerlink" title="14. ABS"></a>14. ABS</h4><p>返回指定值的绝对值</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select abs(-100) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="15-CEIL"><a href="#15-CEIL" class="headerlink" title="15. CEIL"></a>15. CEIL</h4><p>返回大于或等于给出数字的最小整数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select ceil(3.1415927) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="17-FLOOR"><a href="#17-FLOOR" class="headerlink" title="17. FLOOR"></a>17. FLOOR</h4><p>对给定的数字取整数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select floor(2345.67) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="18-ROUND和TRUNC"><a href="#18-ROUND和TRUNC" class="headerlink" title="18. ROUND和TRUNC"></a>18. ROUND和TRUNC</h4><p>按照指定的精度进行取舍</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select round(55.5),round(-55.4),trunc(55.5),trunc(-55.5) from dual;</span><br><span class="line">--返回： 56，-55，55，-55</span><br></pre></td></tr></table></figure>
+
+<h4 id="19-ADD-MONTHS"><a href="#19-ADD-MONTHS" class="headerlink" title="19. ADD_MONTHS"></a>19. ADD_MONTHS</h4><p>增加或减去月份</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select to_char(add_months(to_date(&#39;199912&#39;,&#39;yyyymm&#39;),-2),&#39;yyyymm&#39;) from dual;</span><br><span class="line">SQL&gt; select to_char(add_months(to_date(&#39;199912&#39;,&#39;yyyymm&#39;),2),&#39;yyyymm&#39;) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="20-LAST-DAY"><a href="#20-LAST-DAY" class="headerlink" title="20. LAST_DAY"></a>20. LAST_DAY</h4><p>返回日期的最后一天</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select last_day(sysdate) from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="21-USER"><a href="#21-USER" class="headerlink" title="21. USER"></a>21. USER</h4><p>返回当前用户的名字</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select user from dual;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="22-MONTHS-BETWEEN-date2-date1"><a href="#22-MONTHS-BETWEEN-date2-date1" class="headerlink" title="22. MONTHS_BETWEEN(date2,date1)"></a>22. MONTHS_BETWEEN(date2,date1)</h4><p>给出date2-date1的月份</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select months_between(&#39;19-12月-1999&#39;,&#39;19-3月-1999&#39;) from dual; </span><br><span class="line">SQL&gt; select months_between(to_date(&#39;2000.05.20&#39;,&#39;yyyy.mm.dd&#39;),to_date(&#39;2005.05.20&#39;,&#39;yyyy.mm.dd&#39;))  from dual;</span><br></pre></td></tr></table></figure>
+
+<h4 id="23-NEXT-DAY"><a href="#23-NEXT-DAY" class="headerlink" title="23. NEXT_DAY"></a>23. NEXT_DAY</h4><p>给出日期date和星期X后计算下一个星期X的日期</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SQL&gt; select next_day(&#39;18-5月-2001&#39;,&#39;星期五&#39;) from dual;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>oracle</category>
+      </categories>
+      <tags>
+        <tag>Oracle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Win10安装weblogic 10.3.6</title>
+    <url>/2020/07/30/Win10%E5%AE%89%E8%A3%85weblogic/</url>
+    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>本次安装版本：weblogic10.3.6</p>
+<p>第一次安装，因jdk版本不支持1.8以上报错，后来换成了1.6好使了</p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a><a href="https://www.oracle.com/middleware/technologies/fusionmiddleware-downloads.html" target="_blank" rel="noopener">下载</a></h2><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<li><p>点击安装包，进入欢迎使用页面，直接点下一步</p>
+</li>
+<li><p>选择中间件的主目录，创建空文件夹就行，这里创建了bea目录，选好目录点下一步</p>
+<a id="more"></a>
+
+<p><img src="https://pic.downk.cc/item/5f25476014195aa5941acb54.png" alt="https://pic.downk.cc/item/5f25476014195aa5941acb54.png"></p>
+</li>
+<li><p>注册安全更新页面，可以不选，直接下一步</p>
+<p><img src="https://pic.downk.cc/item/5f25477714195aa5941ad52d.png" alt="https://pic.downk.cc/item/5f25477714195aa5941ad52d.png"></p>
+</li>
+<li><p>提示连接失败，选择不接收配置中通知</p>
+<p><img src="https://pic.downk.cc/item/5f25478214195aa5941ad97e.png" alt="https://pic.downk.cc/item/5f25478214195aa5941ad97e.png"></p>
+</li>
+<li><p>选择安装类型为典型</p>
+<p><img src="https://pic.downk.cc/item/5f25479014195aa5941adfcd.png" alt="https://pic.downk.cc/item/5f25479014195aa5941adfcd.png"></p>
+</li>
+<li><p>选择jdk安装目录，注意要使用1.8以下的版本，下一步</p>
+<p><img src="https://pic.downk.cc/item/5f25479f14195aa5941ae5cd.png" alt="https://pic.downk.cc/item/5f25479f14195aa5941ae5cd.png"></p>
+</li>
+<li><p>选择产品安装目录，默认在中间件目录下，下一步</p>
+<p><img src="https://pic.downk.cc/item/5f2547ab14195aa5941ae9f7.png" alt="https://pic.downk.cc/item/5f2547ab14195aa5941ae9f7.png"></p>
+</li>
+<li><p>安装概要，下一步开始安装</p>
+<p><img src="https://pic.downk.cc/item/5f2547b614195aa5941aee63.png" alt="https://pic.downk.cc/item/5f2547b614195aa5941aee63.png"></p>
+</li>
+<li><p>安装完成，默认会选中运行Quickstart进入配置页。</p>
+<p><img src="https://pic.downk.cc/item/5f2547c214195aa5941af309.png" alt="https://pic.downk.cc/item/5f2547c214195aa5941af309.png"></p>
+</li>
+</ol>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
+<li><p>选择配置类型 ，创建新的域</p>
+<p>Getting started with weblogic server  创建新的域</p>
+<p>Upgtade domains to version  升级现有版本到10.3.6</p>
+<p>access documentation online 文档</p>
+<p><img src="https://pic.downk.cc/item/5f2547cd14195aa5941af70c.png" alt="https://pic.downk.cc/item/5f2547cd14195aa5941af70c.png"></p>
+</li>
+<li><p>选择创建新的weblogic域</p>
+<p><img src="https://pic.downk.cc/item/5f2547d814195aa5941afaf7.png" alt="https://pic.downk.cc/item/5f2547d814195aa5941afaf7.png"></p>
+</li>
+<li><p>直接下一步</p>
+<p><img src="https://pic.downk.cc/item/5f2547e014195aa5941afd90.png" alt="https://pic.downk.cc/item/5f2547e014195aa5941afd90.png"></p>
+</li>
+<li><p>指定域名和位置</p>
+<p><img src="https://pic.downk.cc/item/5f2547ea14195aa5941b0069.png" alt="https://pic.downk.cc/item/5f2547ea14195aa5941b0069.png"></p>
+</li>
+<li><p>配置管理员用户名和密码</p>
+<p>用户名：weblogic</p>
+<p>密码： 1234qwer</p>
+<p><img src="https://pic.downk.cc/item/5f2547f414195aa5941b030d.png" alt="https://pic.downk.cc/item/5f2547f414195aa5941b030d.png"></p>
+</li>
+<li><p>配置服务器启动模式和jdk，开发模式自动面密码，生产模式启动时需要填写用户名和密码，这里选择生产模式，后面再创建一个开发模式</p>
+<p><img src="https://pic.downk.cc/item/5f25480014195aa5941b0689.png" alt="https://pic.downk.cc/item/5f25480014195aa5941b0689.png"></p>
+</li>
+<li><p>选择“管理服务器”、“受管服务器、集群机器”</p>
+<p><img src="https://pic.downk.cc/item/5f25480a14195aa5941b09cd.png" alt="https://pic.downk.cc/item/5f25480a14195aa5941b09cd.png"></p>
+</li>
+<li><p>名称默认即可，选择本地监听地址，指定端口号</p>
+<p><img src="https://pic.downk.cc/item/5f25481314195aa5941b0ca8.png" alt="https://pic.downk.cc/item/5f25481314195aa5941b0ca8.png"></p>
+</li>
+<li><p>单机不配置受管服务器，直接下一步</p>
+</li>
+<li><p>单机不配置集群，直接下一步</p>
+</li>
+<li><p>不配置计算机，直接下一步</p>
+</li>
+<li><p>点创建</p>
+</li>
+<li><p>启动服务，在\bea\user_projects\domains\weblogic1036下启动startWeblogic.cmd,输入用户名和密码，启动，看到RUNNING mode启动成功。</p>
+<p><img src="https://pic.downk.cc/item/5f25481314195aa5941b0ca8.png" alt="https://pic.downk.cc/item/5f25481314195aa5941b0ca8.png"></p>
+</li>
+<li><p>浏览器访问<a href="http://localhost:7001/console访问weblogic控制台，输入用户名与密码点击登录，" target="_blank" rel="noopener">http://localhost:7001/console访问weblogic控制台，输入用户名与密码点击登录，</a></p>
+<p><img src="https://pic.downk.cc/item/5f25482714195aa5941b13d7.png" alt="https://pic.downk.cc/item/5f25482714195aa5941b13d7.png"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Server</category>
+      </categories>
+      <tags>
+        <tag>Server</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>gitlab服务搭建</title>
+    <url>/2021/01/10/gitlab%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h2 id="版本介绍"><a href="#版本介绍" class="headerlink" title="版本介绍"></a>版本介绍</h2><ol>
+<li><p>查看系统版本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ /]<span class="comment"># cat  /etc/redhat-release</span></span><br><span class="line">CentOS Linux release 7.6.1810 (Core)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>gitlab版本</p>
+<p>gitlab-ce-13.6.3-ce.0.el6.x86_64.rpm</p>
+</li>
+</ol>
+<a id="more"></a>
+<ol start="3">
+<li><p>各依赖版本</p>
+<p>cronie-1.4.11-23.el7.x86_64.rpm   定时任务服务</p>
+<p>openssh-server-7.4p1-21.el7.x86_64.rpm  ssh服务</p>
+<p>postfix-2.10.1-9.el7.x86_64.rpm  邮件服务</p>
+<p>policycoreutils-python-2.5-34.el7.x86_64.rpm  selinux 的预配置文件和工具</p>
+</li>
+</ol>
+<h2 id="依赖准备"><a href="#依赖准备" class="headerlink" title="依赖准备"></a>依赖准备</h2><p>​    访问<a href="http://rpmfind.net/" target="_blank" rel="noopener">rpmfind</a>搜索下载对应依赖</p>
+<p>​    访问<a href="https://mirrors.tuna.tsinghua.edu.cn/" target="_blank" rel="noopener">清华大学开源软件镜像站</a>搜索gitlab-ce下载对应版本rpm包</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<li><p>将依赖上传至Linux服务器</p>
+</li>
+<li><p>安装依赖</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rpm -ivh cronie-1.4.11-23.el7.x86_64.rpm --force --nodeps</span><br><span class="line">rpm -ivh openssh-server-7.4p1-21.el7.x86_64.rpm --force --nodeps</span><br><span class="line">rpm -ivh postfix-2.10.1-9.el7.x86_64.rpm --force --nodeps</span><br><span class="line">rpm -ivh policycoreutils-python-2.5-34.el7.x86_64.rpm --force --nodeps</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置依赖</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 设置ssh开机自启动</span></span><br><span class="line">systemctl <span class="built_in">enable</span> sshd</span><br><span class="line"><span class="comment">## 启动ssh服务</span></span><br><span class="line">systemctl start sshd</span><br><span class="line"><span class="comment">## 将http添加到防火墙</span></span><br><span class="line">firewall-cmd --permanent --add-service=http</span><br><span class="line"><span class="comment">## 将https添加到防火墙（不开https也可以不添加）</span></span><br><span class="line">firewall-cmd --permanent --add-service=https</span><br><span class="line"><span class="comment">## 重启防火墙</span></span><br><span class="line">systemctl reload firewalld</span><br><span class="line"><span class="comment">## 设置邮件服务开机自启动</span></span><br><span class="line">systemctl <span class="built_in">enable</span> postfix</span><br><span class="line"><span class="comment">## 启动邮件服务</span></span><br><span class="line">systemctl start postfix</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装gitlab</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rpm -ivh gitlab-ce-13.6.3-ce.0.el6.x86_64.rpm</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
+<li><p>修改配置文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim  /etc/gitlab/gitlab.rb</span><br><span class="line"><span class="comment"># 更改访问地址</span></span><br><span class="line"><span class="comment">#格式：external_url 'http://ip:端口'</span></span><br><span class="line">external_url <span class="string">'http://192.168.1.1:7021'</span></span><br><span class="line"><span class="comment">#配置时区</span></span><br><span class="line">gitlab_rails[<span class="string">'time_zone'</span>] = <span class="string">'Asia/Shanghai'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>防火墙开放端口并重启防火墙,阿里云服务器需要再控制台也开放</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">firewall-cmd --zone&#x3D;public --add-port&#x3D;7021&#x2F;tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重置Gitlab</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitlab-ctl reconfigure</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动gitlab</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitlab-ctl restart</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看gitlab日志</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gitlab-ctl tail</span><br></pre></td></tr></table></figure>
+
+<p>启动后查看日志，看有没有报端口冲突错，有些端口默认8080，如果端口有占用的话需要注意以下位置：</p>
+<p>/var/opt/gitlab/nginx/conf/gitlab-http.conf 查看nginx监听的端口跟gitlab.rb下监听的是不是一致，如果还是8080则需要改为跟gitlab.rb一致的</p>
+<p>/var/opt/gitlab/gitlab-rails/etc/puma.rb</p>
+<p>或者直接再/var/opt/gitlab/目录下全局搜索8080，搜到的改掉</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">grep -r &quot;8080&quot;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<h2 id="备份与恢复"><a href="#备份与恢复" class="headerlink" title="备份与恢复"></a>备份与恢复</h2><ol>
+<li><p>备份目录设置，默认在/var/opt/gitlab/backups</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/gitlab/gitlab.rb <span class="comment">##修改以下配置</span></span><br><span class="line">gitlab_rails[<span class="string">'manage_backup_path'</span>] = <span class="literal">true</span></span><br><span class="line">gitlab_rails[<span class="string">'backup_path'</span>] = <span class="string">"/data/gitlab/backups"</span>    <span class="comment">##gitlab备份目录</span></span><br><span class="line">gitlab_rails[<span class="string">'backup_archive_permissions'</span>] = 0644       <span class="comment">##生成的备份文件权限</span></span><br><span class="line">gitlab_rails[<span class="string">'backup_keep_time'</span>] = 7776000              <span class="comment">##备份保留天数为3个月（即90天，这里是7776000秒</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 创建文件夹并配置权限</span></span><br><span class="line">mkdir -p /data/gitlab/backups</span><br><span class="line">chown -R git.git /data/gitlab/backups</span><br><span class="line">chmod -R 777 /data/gitlab/backups</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>备份</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">##手动备份</span></span><br><span class="line">gitlab-rake gitlab:backup:create</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>恢复</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">##停止相关数据连接服务</span></span><br><span class="line">gitlab-ctl stop unicorn</span><br><span class="line">gitlab-ctl stop sidekiq</span><br><span class="line"><span class="comment">##查看状态</span></span><br><span class="line">gitlab-ctl status</span><br><span class="line"><span class="comment">## 恢复前需要把备份文件放到备份路径下/var/opt/gitlab/backups</span></span><br><span class="line"><span class="comment">##开始恢复</span></span><br><span class="line"><span class="comment">## 例如恢复：1614432908_2021_02_27_13.6.3_gitlab_backup.tar</span></span><br><span class="line">gitlab-rake gitlab:backup:restore BACKUP=1614432908_2021_02_27_13.6.3</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用GitHub搭建个人博客</title>
+    <url>/2020/07/30/%E4%BD%BF%E7%94%A8GitHub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<p>记录2020-07-28日使用github搭建个人博客站</p>
+<h2 id="1、创建GitHub账号"><a href="#1、创建GitHub账号" class="headerlink" title="1、创建GitHub账号"></a>1、创建GitHub账号</h2><p>创建GitHub账号就没啥含量了，操作就完了</p>
+<h3 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h3><p><img src="https://pic.downk.cc/item/5f21886114195aa5949da40a.png" alt="image-20200729205737744"></p>
+<a id="more"></a>
+
+<p>Repoisitory name：仓库名称</p>
+<p>Description： 仓库描述（可以省略）</p>
+<p>Public：仓库公开</p>
+<p>Initialize this repository with a README：用自述文件初始化这个存储库</p>
+<p>填完点Create repository创建</p>
+<h2 id="2、环境安装"><a href="#2、环境安装" class="headerlink" title="2、环境安装"></a>2、环境安装</h2><h3 id="本地电脑下载安装Git"><a href="#本地电脑下载安装Git" class="headerlink" title="本地电脑下载安装Git"></a>本地电脑下载安装<a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a></h3><p>验证：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+
+<h3 id="本地电脑下载安装Node-js"><a href="#本地电脑下载安装Node-js" class="headerlink" title="本地电脑下载安装Node.js"></a>本地电脑下载安装<a href="https://nodejs.org/zh-cn/download/" target="_blank" rel="noopener">Node.js</a></h3><p>验证：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">node -v</span><br><span class="line"><span class="comment"># npm --version</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a></h3><p>使用npm安装Hexo</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、开始建站"><a href="#3、开始建站" class="headerlink" title="3、开始建站"></a>3、开始建站</h2><h3 id="初始化hexo"><a href="#初始化hexo" class="headerlink" title="初始化hexo"></a>初始化hexo</h3><p>创建一个新的文件夹（名称自定义），将文件夹在终端打开</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#初始化hexo</span></span><br><span class="line">hexo init</span><br><span class="line"><span class="comment">#加载依赖</span></span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>完成后自定义的文件夹会多出很多资源</p>
+<p><img src="https://pic.downk.cc/item/5f21889a14195aa5949dc671.png" alt="image-20200729212303206"></p>
+<h3 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h3><p>打开_config.yml 其他配置参考<a href="https://hexo.io/zh-cn/docs/configuration.html" target="_blank" rel="noopener">配置</a></p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 博客名称</span></span><br><span class="line"><span class="attr">title:</span> </span><br><span class="line"><span class="comment"># 副标题</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">''</span></span><br><span class="line"><span class="comment"># 描述</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">''</span></span><br><span class="line"><span class="comment"># 关键字</span></span><br><span class="line"><span class="attr">keywords:</span></span><br><span class="line"><span class="comment"># 作者</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">thePri</span></span><br><span class="line"><span class="comment"># 语言</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-Hans</span></span><br><span class="line"><span class="comment"># 时区</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">''</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="配置主题"><a href="#配置主题" class="headerlink" title="配置主题"></a>配置主题</h3><ul>
+<li><p>安装主题</p>
+<p>themes文件夹下存放的是主题，默认主题是landscape,也可以安装<a href="https://hexo.io/themes/" target="_blank" rel="noopener">其他主题</a>，在选中主题后复制github上的地址克隆到themes下，</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone 主题GitHub地址 themes&#x2F;主题名称</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启用主题</p>
+<p>更改根目录下_config.yml文件，找到theme字段将其值更改为主题名称</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">主题名称</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>验证主题</p>
+<p>访问 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> 就可以看到博客了</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 清理缓存，每次切换主题都需要清理缓存</span></span><br><span class="line">hexo clean</span><br><span class="line"><span class="comment"># 启动hexo本地服务</span></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p>一般每个主题的GitHub下都有操作文档</p>
+</li>
+</ul>
+<h3 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h3><ol>
+<li><p>新建一篇文章</p>
+<p>在终端打开根目录，新建的文章存在source/_pos的文件名称是【文件主题.md】</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># yayout: 模板，如果不写会使用默认模板，一般不写</span></span><br><span class="line">hexo new layout 文章主题</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成静态文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动本地服务器验证文章</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 同hexo server</span></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="4、部署"><a href="#4、部署" class="headerlink" title="4、部署"></a>4、部署</h2><h3 id="安装部署工具"><a href="#安装部署工具" class="headerlink" title="安装部署工具"></a>安装部署工具</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p>安装完毕后打开根目录下的_config.yml文件找depoly修改：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="comment"># 类型为git</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="comment"># 上面在GitHub中创建的仓库地址</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">https://github.com/thePri/nls.github.io.git</span></span><br><span class="line">  <span class="comment"># 分支</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<p>部署网站</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<p>每次写完文章后依次执行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 清理缓存</span></span><br><span class="line">hexo clean</span><br><span class="line"><span class="comment"># 生成静态网页文件</span></span><br><span class="line">hexo g</span><br><span class="line"><span class="comment"># 本地发布到github</span></span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<h2 id="5、更多"><a href="#5、更多" class="headerlink" title="5、更多"></a>5、更多</h2><p>​    本章参考<a href="https://mp.weixin.qq.com/s/rIOoX2MMl0qEsJ4pnwJoqQ" target="_blank" rel="noopener">my_杨哥的博客</a></p>
+<p>注意：github的域名要与用户名一致</p>
+<p><img src="https://pic.downk.cc/item/5f2188cb14195aa5949dda40.png" alt="image-20200729222649499"></p>
+<p><img src="https://pic.downk.cc/item/5f2188e814195aa5949debf4.png" alt="image-20200729222712559"></p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java2线程</title>
+    <url>/2020/11/03/java%E7%BA%BF%E7%A8%8B2/</url>
+    <content><![CDATA[<p><a href="https://www.cnblogs.com/java1024/archive/2019/11/28/11950129.html" target="_blank" rel="noopener">参考</a></p>
+<h4 id="1-线程的状态变化"><a href="#1-线程的状态变化" class="headerlink" title="1. 线程的状态变化"></a>1. 线程的状态变化</h4><ul>
+<li><p>创建状态</p>
+<p>用构造方法创建了一个线程对象后，新的线程对象便处于新建状态，此时它已经有了相应的内存空间和其他资源，但还处于不可运行状态。例如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Thread thread = <span class="keyword">new</span> Thread();</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>就绪状态</p>
+<p>调用该线程的start()方法就可以启动线程。当线程启动时，线程进入就绪状态，此时，线程将进入线程队列排队，等待CPU服务，这表明它已经具备了运行条件</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">thread.start();</span><br></pre></td></tr></table></figure>
+
+ <a id="more"></a>
+</li>
+<li><p>运行状态</p>
+<p>当就绪状态被调用并获得处理器资源时，线程就进入了运行状态。自动调用该线程对象的run()方法。run()方法定义该线程的操作和功能</p>
+</li>
+<li><p>阻塞状态</p>
+<p>一个正在执行的线程再某特殊的情况下，如被人为挂起或需要执行耗时的操作，会让CPU暂时中止自己的执行，进入阻塞状态。再可执行状态下，如果调用sleep(),susoend(),wait()等方法，线程都将进入阻塞状态，发生阻塞时线程不能进入排队队列，只有当引起阻塞的原因被消除后，线程才可以转入就绪状态。</p>
+</li>
+<li><p>死亡状态</p>
+<p>线程调用stop()方法时或run()方法执行结束后，即处于死亡状态。处于死亡状态的线程不具有继续运行的能立。</p>
+</li>
+</ul>
+<h4 id="2-常用方法"><a href="#2-常用方法" class="headerlink" title="2. 常用方法"></a>2. 常用方法</h4><ol>
+<li><p>强制运行</p>
+<p>在线程操作中，可以使用join()方法让一个线程强制运行，线程强制运行期间其他线程无法运行，必须等待此线程完成之后才可以继续执行</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//运行结果：Main线程i=10时强制执行线程内的代码，线程内的代码执行完后继续执行Main线程的循环</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadJoinDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">50</span>; i++) &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">"运行，i="</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        ThreadJoinDemo demo = <span class="keyword">new</span> ThreadJoinDemo();</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(demo,<span class="string">"线程"</span>);</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">50</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i&gt;<span class="number">10</span>)&#123;</span><br><span class="line">                thread.join();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"Main线程运行---&gt;"</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>线程休眠</p>
+<p>在一个程序中允许一个线程进行暂时的休眠，直接使用Thread.sleep()即可实现休眠</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//执行结果，每0.5秒打印一条</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadSleepDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">50</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">500</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">"运行，i="</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ThreadSleepDemo demo = <span class="keyword">new</span> ThreadSleepDemo();</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(demo,<span class="string">"SleepDemo"</span>);</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>中断线程</p>
+<p>当一个线程运行时，另外一个线程可以直接通过interrupt()方法中断其运行</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadInterruptDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"进入run方法"</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">10000</span>);</span><br><span class="line">            System.out.println(<span class="string">"完成休眠"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">"休眠被中止"</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"run方法正常结束"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ThreadInterruptDemo demo = <span class="keyword">new</span> ThreadInterruptDemo();</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(demo);</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//时常比run方法中短则会比run方法先唤醒，执行interrupt将run方法终止</span></span><br><span class="line">            Thread.sleep(<span class="number">20000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">"休眠被中止"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        thread.interrupt();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>后台线程</p>
+<p>在Java程序中，只要前台有一个线程在运行，则整个Java进程都不会消失，所以可以设置一个后台线程setDaemon()，这样即使Java线程结束了，此后台线程依然会继续执行，</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadDaemonDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">":::"</span>+ i );</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ThreadDaemonDemo demo = <span class="keyword">new</span> ThreadDaemonDemo();</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(demo);</span><br><span class="line">        thread.setDaemon(<span class="keyword">true</span>);</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>线程的优先级</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadPriorityDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">"运行"</span> );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread thread1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> ThreadPriorityDemo(),<span class="string">"线程A"</span>);</span><br><span class="line">        Thread thread2 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> ThreadPriorityDemo(),<span class="string">"线程B"</span>);</span><br><span class="line">        Thread thread3 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> ThreadPriorityDemo(),<span class="string">"线程C"</span>);</span><br><span class="line">        <span class="comment">//优先级最低</span></span><br><span class="line">        thread1.setPriority(Thread.MIN_PRIORITY);</span><br><span class="line">        <span class="comment">//优先级中等</span></span><br><span class="line">        thread2.setPriority(Thread.NORM_PRIORITY);</span><br><span class="line">        <span class="comment">//优先级最高</span></span><br><span class="line">        thread3.setPriority(Thread.MAX_PRIORITY);</span><br><span class="line">        thread1.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">        thread3.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h4 id="3-同步及死锁"><a href="#3-同步及死锁" class="headerlink" title="3. 同步及死锁"></a>3. 同步及死锁</h4><p>一个多线程的程序如果是通过Runnable接口实现的，则意味着类中的属性被多个线程共享，那么这样就会造成一种问题，如果这个多线程要操作同一个资源时就可能出现资源同步问题</p>
+<ol>
+<li><p>同步代码块</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadSynchronizedDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> ticked = <span class="number">5</span>;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="keyword">this</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span> (ticked&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.sleep(<span class="number">300</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                    System.out.println(<span class="string">"卖票：ticked="</span>+ticked--);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ThreadSynchronizedDemo demo = <span class="keyword">new</span> ThreadSynchronizedDemo();</span><br><span class="line">        Thread thread1 = <span class="keyword">new</span> Thread(demo);</span><br><span class="line">        Thread thread2 = <span class="keyword">new</span> Thread(demo);</span><br><span class="line">        Thread thread3 = <span class="keyword">new</span> Thread(demo);</span><br><span class="line">        thread1.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">        thread3.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>同步方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadSynchronizedDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> ticked = <span class="number">5</span>;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">this</span>.setTicked();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">setTicked</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (ticked&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">300</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"卖票：ticked="</span>+ticked--);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ThreadSynchronizedDemo demo = <span class="keyword">new</span> ThreadSynchronizedDemo();</span><br><span class="line">        Thread thread1 = <span class="keyword">new</span> Thread(demo);</span><br><span class="line">        Thread thread2 = <span class="keyword">new</span> Thread(demo);</span><br><span class="line">        Thread thread3 = <span class="keyword">new</span> Thread(demo);</span><br><span class="line">        thread1.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">        thread3.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>死锁</p>
+<p>所谓死锁，就是两个线程都在等待对方先完成，造成程序的停滞，一般程序死锁都是在程序运行时出现的</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadLockDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Zhang zhang = <span class="keyword">new</span> Zhang();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Li li = <span class="keyword">new</span> Li();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (flag)&#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (zhang)&#123;</span><br><span class="line">                zhang.say();</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">500</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">synchronized</span> (li)&#123;</span><br><span class="line">                    zhang.get();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (li)&#123;</span><br><span class="line">                li.say();</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">500</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">synchronized</span> (zhang)&#123;</span><br><span class="line">                    li.get();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ThreadLockDemo demo1 = <span class="keyword">new</span> ThreadLockDemo();</span><br><span class="line">        ThreadLockDemo demo2 = <span class="keyword">new</span> ThreadLockDemo();</span><br><span class="line">        demo1.flag = <span class="keyword">true</span>;</span><br><span class="line">        demo2.flag = <span class="keyword">false</span>;</span><br><span class="line">        Thread thread1 = <span class="keyword">new</span> Thread(demo1);</span><br><span class="line">        Thread thread2 = <span class="keyword">new</span> Thread(demo2);</span><br><span class="line">        thread1.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Zhang</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">say</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"张三对李四说：“你给我画，我就把书给你。”"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"张三得到了画。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Li</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">say</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"李四对张三说：“你给我书，我就把画给你。”"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"李四得到了书。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java线程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux搭建SVN服务</title>
+    <url>/2021/01/16/svn%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h1 id="Linux搭建SVN服务"><a href="#Linux搭建SVN服务" class="headerlink" title="Linux搭建SVN服务"></a>Linux搭建SVN服务</h1><h2 id="准备安装包"><a href="#准备安装包" class="headerlink" title="准备安装包"></a>准备安装包</h2><p>下载<a href="http://subversion.apache.org/download/" target="_blank" rel="noopener">subversion</a>  下载<a href="http://apr.apache.org/download.cgi" target="_blank" rel="noopener">apr</a>   下载<a href="http://apr.apache.org/download.cgi" target="_blank" rel="noopener">apr-util</a>   下载<a href="http://linux.softpedia.com/get/Programming/Libraries/zlib-159.shtml" target="_blank" rel="noopener">zlib</a>   下载<a href="http://sqlite.org/download.html" target="_blank" rel="noopener">sqllite</a>   下载<a href="http://www.linuxfromscratch.org/blfs/view/6.3/general/expat.html" target="_blank" rel="noopener">expat</a></p>
+<h2 id="安装版本"><a href="#安装版本" class="headerlink" title="安装版本"></a>安装版本</h2><ol>
+<li>主安装包：subversion-1.14.0.tar.gz</li>
+<li>svn基础依赖包：apr-1.7.0.tar.gz</li>
+<li>svn基础依赖包：apr-util-1.6.1.tar.gz</li>
+<li>svn基础依赖包：zlib-1.2.11.tar.xz</li>
+<li>数据库依赖包：sqlite-autoconf-3340000.tar.gz</li>
+<li>apr-util依赖包：expat-2.0.1.tar.gz<a id="more"></a>
+
+</li>
+</ol>
+<h2 id="将安装包上传至服务器并解压"><a href="#将安装包上传至服务器并解压" class="headerlink" title="将安装包上传至服务器并解压"></a>将安装包上传至服务器并解压</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">##解压subversion-1.14.0.tar.gz</span></span><br><span class="line">[root@T-NJST_App01 svn]<span class="comment"># tar -xzvf subversion-1.14.0.tar.gz</span></span><br><span class="line"><span class="comment">##解压apr-1.7.0.tar.gz</span></span><br><span class="line">[root@T-NJST_App01 svn]<span class="comment"># tar -xzvf apr-1.7.0.tar.gz</span></span><br><span class="line"><span class="comment">##解压apr-util-1.6.1.tar.gz</span></span><br><span class="line">[root@T-NJST_App01 svn]<span class="comment"># tar -xzvf apr-util-1.6.1.tar.gz</span></span><br><span class="line"><span class="comment">##解压zlib-1.2.11.tar.xz</span></span><br><span class="line">[root@T-NJST_App01 svn]<span class="comment"># xz -d zlib-1.2.11.tar.xz</span></span><br><span class="line">[root@T-NJST_App01 svn]<span class="comment"># tar -xvf zlib-1.2.11.tar</span></span><br><span class="line"><span class="comment">##解压sqlite-autoconf-3340000.tar.gz</span></span><br><span class="line">[root@T-NJST_App01 svn]<span class="comment"># tar -xzvf sqlite-autoconf-3320300.tar.gz</span></span><br><span class="line"><span class="comment">##解压expat-2.0.1.tar.gz</span></span><br><span class="line">[root@T-NJST_App01 svn]<span class="comment"># tar -xzvf expat-2.0.1.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><p>./configure：检测安装平台的目标特征，比如它会检测是否安装GC，是否需要GC</p>
+<p>make:  编译</p>
+<p>make install：安装</p>
+<ol>
+<li><p>安装apr</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@T-NJST_App01 svn]# cd apr-1.7.0</span><br><span class="line">[root@T-NJST_App01 apr-1.7.0]# ./configure prefix=/home/hasl/Downloads/gz/svn/apr-1.7.0</span><br><span class="line">[root@T-NJST_App01 apr-1.7.0]# make</span><br><span class="line">[root@T-NJST_App01 apr-1.7.0]# make install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 expat</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@T-NJST_App01 svn]# cd apr-util-1.6.1</span><br><span class="line">[root@T-NJST_App01 apr-util-1.6.1]# ./configure</span><br><span class="line">[root@T-NJST_App01 apr-util-1.6.1]# make</span><br><span class="line">[root@T-NJST_App01 apr-util-1.6.1]# make install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装apr-util</p>
+<p>安装apr-util前需要先安装expat,检测时需要指定apr安装路径否则检测不通过</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@T-NJST_App01 svn]# cd apr-util-1.6.1</span><br><span class="line">[root@T-NJST_App01 apr-util-1.6.1]# ./configure prefix=/home/hasl/Downloads/gz/svn/apr-util-1.6.1 --with-apr=/usr/local/apr</span><br><span class="line">[root@T-NJST_App01 apr-util-1.6.1]# make</span><br><span class="line">[root@T-NJST_App01 apr-util-1.6.1]# make install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装zlib</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@T-NJST_App01 svn]# cd zlib-1.2.11</span><br><span class="line">[root@T-NJST_App01 zlib-1.2.11]# ./configure </span><br><span class="line">[root@T-NJST_App01 zlib-1.2.11]# make</span><br><span class="line">[root@T-NJST_App01 zlib-1.2.11]# make install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装subversion</p>
+<p>将sqlite-autoconf-3340000文件夹改名为sqlite-amalgamation并移动到subversion-1.14.0文件夹下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@T-NJST_App01 svn]# cd subversion-1.14.0</span><br><span class="line">[root@T-NJST_App01 subversion-1.14.0]# ./configure prefix=/home/hasl/Downloads/gz/svn/subversion-1.14.0  --with-lz4=internal --with-utf8proc=internal</span><br><span class="line">[root@T-NJST_App01 subversion-1.14.0]# make &amp; make install</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h2 id="配置SVN仓库"><a href="#配置SVN仓库" class="headerlink" title="配置SVN仓库"></a>配置SVN仓库</h2><ol>
+<li><p>创建仓库</p>
+<p>根目录下创建/svn/project</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@T-NJST_App01 /]# mkdir svn</span><br><span class="line">[root@T-NJST_App01 svn]# mkdir -p project</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化仓库</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@T-NJST_App01 svn]# svnadmin create /svn/project</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改配置文件</p>
+<p>编辑svnserve.conf</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@T-NJST_App01 conf]# vim svnserve.conf</span><br></pre></td></tr></table></figure>
+
+<p>将文件中以下内容解除注释并修改</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[general]</span><br><span class="line">anon-access=none    #使非授权用户无法访问</span><br><span class="line">auth-access=write   #使授权用户有写权限</span><br><span class="line">password-db=passwd  #指明密码文件路径</span><br><span class="line">authz-db=authz       #访问控制文件</span><br><span class="line">realm=repos         #认证命名空间，subversion会在认证提示里显示，并且作为凭证缓存的关键字</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改passwd文件，用于创建用户</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@T-NJST_App01 conf]# vim passwd</span><br></pre></td></tr></table></figure>
+
+<p>按照以下格式添加修改用户</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[users]</span><br><span class="line">admin=admin #用户名1 = 密码1</span><br><span class="line">user=user   #用户名2 = 密码2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改authz文件，用于管理用户权限</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@T-NJST_App01 conf]# vim authz</span><br></pre></td></tr></table></figure>
+
+<p>设置组</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[groups]</span><br><span class="line">group1=用户1,用户2</span><br><span class="line">group2=用户3,用户4,用户5</span><br></pre></td></tr></table></figure>
+
+<p>设置访问权限</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[/]</span><br><span class="line">@group1=rw</span><br><span class="line">@group2=r</span><br><span class="line">* = r</span><br><span class="line"><span class="meta">#</span><span class="bash"> [/foo/bar]</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> harry = rw</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> &amp;joe = r</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> * =</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> [repository:/baz/fuz]</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> @harry_and_sally = rw</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> * = r</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><p>​    -d表示在后台执行服务</p>
+<p>​    -listen 3690 (默认端口，也可以自行指定)</p>
+<p>​    -r 指定svn服务的根目录，这样用户就可以使用相对路径访问，而不用提供完整路径</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@T-NJST_App01 conf]#  svnserve -d --listen-port 3690  -r /svn/project</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看服务"><a href="#查看服务" class="headerlink" title="查看服务"></a>查看服务</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@T-NJST_App01 conf]# ps - ef|grep svn</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>SVN</category>
+      </categories>
+      <tags>
+        <tag>SVN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>共享存储服务搭建、zip、unzip</title>
+    <url>/2020/08/02/%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E3%80%81zip%E3%80%81unzip/</url>
+    <content><![CDATA[<h2 id="安装zip和unzip"><a href="#安装zip和unzip" class="headerlink" title="安装zip和unzip"></a>安装zip和unzip</h2><ol>
+<li><p>查看系统版本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ /]<span class="comment"># lsb_release -a</span></span><br><span class="line">LSB Version:	:core-4.1-amd64:core-4.1-noarch</span><br><span class="line">Distributor ID:	CentOS</span><br><span class="line">Description:	CentOS Linux release 7.6.1810 (Core) </span><br><span class="line">Release:	7.6.1810</span><br><span class="line">Codename:	Core</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+</li>
+<li><p>下载zip、unzip的rpm包，下载地址<a href="http://www.rpmfind.net/linux/rpm2html/search.php?query=zip(x86-64)" target="_blank" rel="noopener">zip、unzip下载</a></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210104103801146.png" alt="image-20210104103801146"></p>
+</li>
+<li><p>将压缩包传到Linux服务器</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ unzip]<span class="comment"># ls</span></span><br><span class="line">unzip-6.0-21.el7.x86_64.rpm</span><br><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ zip]<span class="comment"># ls</span></span><br><span class="line">zip-3.0-11.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装zip</p>
+<p>–force: 强制执行</p>
+<p>–nodeps: 不查找依赖关系</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ zip]<span class="comment"># rpm -ivh zip-3.0-11.el7.x86_64.rpm --force --nodeps</span></span><br><span class="line">Preparing...                          <span class="comment">################################# [100%]</span></span><br><span class="line">Updating / installing...</span><br><span class="line">   1:zip-3.0-11.el7                   <span class="comment">################################# [100%]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装unzip</p>
+<p>–force: 强制执行</p>
+<p>–nodeps: 不查找依赖关系</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ unzip]<span class="comment"># rpm -ivh unzip-6.0-21.el7.x86_64.rpm --force --nodeps</span></span><br><span class="line">Preparing...                          <span class="comment">################################# [100%]</span></span><br><span class="line">Updating / installing...</span><br><span class="line">   1:unzip-6.0-21.el7                 <span class="comment">################################# [100%]</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="安装nfs共享存储"><a href="#安装nfs共享存储" class="headerlink" title="安装nfs共享存储"></a>安装nfs共享存储</h2><ol>
+<li><p>下载nfs所需的rpm包<a href="https://pan.baidu.com/s/1wffIKrKoJUiP-RhnghzHrg" target="_blank" rel="noopener">下载</a> 提取码：jh3b</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">##有网的话可以直接下载</span></span><br><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ nfs]<span class="comment"># yum -y install nfs-utils --downloadonly --downloaddir /home/nfs</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将rpm包上传至服务器</p>
+</li>
+<li><p>安装nfs</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ nfs]<span class="comment"># rpm -ivh *.rpm --force --nodeps</span></span><br><span class="line">Preparing...                          <span class="comment">################################# [100%]</span></span><br><span class="line">Updating / installing...</span><br><span class="line">   1:libtirpc-0.2.4-0.15.el7          <span class="comment">################################# [  6%]</span></span><br><span class="line">   2:rpcbind-0.2.0-47.el7             <span class="comment">################################# [ 13%]</span></span><br><span class="line">   3:libref_array-0.1.5-32.el7        <span class="comment">################################# [ 19%]</span></span><br><span class="line">   4:libevent-2.0.21-4.el7            <span class="comment">################################# [ 25%]</span></span><br><span class="line">   5:libcollection-0.7.0-32.el7       <span class="comment">################################# [ 31%]</span></span><br><span class="line">   6:libbasicobjects-0.1.1-32.el7     <span class="comment">################################# [ 38%]</span></span><br><span class="line">   7:libverto-libevent-0.2.5-4.el7    <span class="comment">################################# [ 44%]</span></span><br><span class="line">   8:tcp_wrappers-7.6-77.el7          <span class="comment">################################# [ 50%]</span></span><br><span class="line">   9:quota-nls-1:4.01-17.el7          <span class="comment">################################# [ 56%]</span></span><br><span class="line">  10:quota-1:4.01-17.el7              <span class="comment">################################# [ 63%]</span></span><br><span class="line">  11:libpath_utils-0.2.1-32.el7       <span class="comment">################################# [ 69%]</span></span><br><span class="line">  12:libini_config-1.3.1-32.el7       <span class="comment">################################# [ 75%]</span></span><br><span class="line">  13:gssproxy-0.7.0-21.el7            <span class="comment">################################# [ 81%]</span></span><br><span class="line">  14:libnfsidmap-0.25-19.el7          <span class="comment">################################# [ 88%]</span></span><br><span class="line">  15:keyutils-1.5.8-3.el7             <span class="comment">################################# [ 94%]</span></span><br><span class="line">  16:nfs-utils-1:1.3.0-0.61.el7       <span class="comment">################################# [100%]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>nfs配置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">##修改配置文件</span></span><br><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ /]<span class="comment"># vi /etc/exports</span></span><br><span class="line"><span class="comment">##添加一下配置，指定客户端的ip地址</span></span><br><span class="line">/nfs 101.201.126.203(rw,insecure，no_root_squash,no_all_squash,sync)</span><br><span class="line"><span class="comment">## 加载配置文件</span></span><br><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ /]<span class="comment"># exportfs -arv</span></span><br><span class="line">exporting 101.201.126.203:/nfs</span><br><span class="line">exporting 101.201.126.203:/nfs to kernel</span><br><span class="line">exportfs: 101.201.126.203:/nfs: Function not implemented</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置开机启动</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ /]<span class="comment"># systemctl enable rpcbind.service</span></span><br><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ /]<span class="comment"># systemctl enable nfs-server.service</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动相关服务</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ /]<span class="comment"># systemctl start rpcbind.service</span></span><br><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ /]<span class="comment"># systemctl start nfs-server.service</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>固定服务端端口</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 编辑/etc/sysconfig/nfs文件</span></span><br><span class="line">[root@iZ2ze3yx4q3vgjwkhogur6Z ~]<span class="comment"># vim /etc/sysconfig/nfs</span></span><br><span class="line"><span class="comment">##新增一下配置：</span></span><br><span class="line">RQUOTAD_port=1001</span><br><span class="line">LOCKD_TCPPORT=30001</span><br><span class="line">LOCKD_UDPPORT=30002</span><br><span class="line">MOUNTD_PORT=1002</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>防火墙开放相应端口</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 开放端口</span></span><br><span class="line">[root@iZ2ze3yx4q3vgjwkhogur6Z ~]<span class="comment"># firewall-cmd --zone=public --add-port=111/tcp --add-port=111/udp --add-port=2049/tcp --add-port=2049/udp --add-port=1001/tcp --add-port=1001/udp --add-port=1002/tcp --add-port=1002/udp --add-port=30001/tcp --add-port=30002/udp --permanent</span></span><br><span class="line"><span class="comment">## 重新加载</span></span><br><span class="line">[root@iZ2ze3yx4q3vgjwkhogur6Z ~]<span class="comment"># firewall-cmd --reload</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>阿里服务器需要到控制台开放端口</p>
+</li>
+<li><p>将nfs的rpm文件上传至客户端</p>
+</li>
+<li><p>客户端安装nfs</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@iZ2ze3yx4q3vgjwkhogur6Z ~]<span class="comment"># rpm -ivh *.rpm --force --nodeps</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>客户端查看服务端共享文件夹</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@iZ2ze3yx4q3vgjwkhogur6Z ~]<span class="comment"># showmount -e 39.102.99.229</span></span><br><span class="line">Export list <span class="keyword">for</span> 39.102.99.229:</span><br><span class="line">/nfs 101.201.126.203</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>挂载</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@iZ2ze3yx4q3vgjwkhogur6Z ~]<span class="comment"># mount -t nfs -o nolock,nfsvers=3,vers=3 -o proto=tcp 39.102.99.229:/nfs /nfs</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置开机自动挂载</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 编辑vim /etc/rc.d/rc.local ，在最后一行新增：</span></span><br><span class="line">mount -t nfs -o nolock,nfsvers=3,vers=3 -o proto=tcp 39.102.99.229:/nfs /nfs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看挂载情况</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@iZ2ze3yx4q3vgjwkhogur6Z ~]<span class="comment"># mount | grep nfs</span></span><br><span class="line">sunrpc on /var/lib/nfs/rpc_pipefs <span class="built_in">type</span> rpc_pipefs (rw,relatime)</span><br><span class="line">nfsd on /proc/fs/nfsd <span class="built_in">type</span> nfsd (rw,relatime)</span><br><span class="line">39.102.99.229:/nfs on /nfs <span class="built_in">type</span> nfs (rw,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,nolock,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=39.102.99.229,mountvers=3,mountport=1002,mountproto=tcp,local_lock=all,addr=39.102.99.229)</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+</search>

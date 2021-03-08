@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Git学习 |  zelong
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="zelong" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Git学习"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Git学习
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/08/02/Git%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time datetime="2020-08-02T04:54:04.000Z" itemprop="datePublished">2020-08-02</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Git/">Git</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">9 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Git是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或大或小的项目</p>
+<p>Git不仅仅是个版本控制系统，它也是内容管理系统，工作管理系统等</p>
+<p>Git与SVN的区别：</p>
+<ol>
+<li>Git是分布式的，SVN不是</li>
+<li>Git把内容按照元数据方式存储，SVN是按文件存储</li>
+<li>Git分支和SVN的分支不同</li>
+<li>Git没有全局的版本号，而SVN有</li>
+<li>Git内容完整性要优于SVN</li>
+</ol>
+<a id="more"></a>
+
+<p>本地仓库有Git维护的三棵”树”组成,这是Git的核心框架.分别是:</p>
+<ol>
+<li>工作区域: 就是平时存放项目代码的地方</li>
+<li>暂存区域: 用于临时存放你的改动,事实上它只是一个文件,保存即将提交的文件列表信息</li>
+<li>Git仓库:就是安全存放数据的位置,这里有提交的所有版本的数据.</li>
+</ol>
+<p>Git的工作流程:</p>
+<ol>
+<li>在工作目录中添加/修改文件</li>
+<li>将需要进行版本管理的文件放入暂存区域</li>
+<li>将暂存区域的文件提交到Git仓库</li>
+</ol>
+<p>HEAD是什么？</p>
+<p>HEAD可以看作是“我”，例如 git log日志中HEAD -&gt; master指的是：我在master分支上</p>
+<h2 id="git分支说明"><a href="#git分支说明" class="headerlink" title="git分支说明"></a>git分支说明</h2><ol>
+<li>Production分支（主线分支用于发版，不会直接更改）</li>
+<li>Develop分支 （开发分支） 主开发分支，包含所有要发布到下一个Release的代码，这个主要用于合并其他分支</li>
+<li>Feature分支（新功能分支）这个分支主要是用来开发一个新功能，一旦开发完成，合并回Develop分支，进入下一个Release</li>
+<li>Release分支（偏向测试） 当你需要发布一个新的Release的时候，基于Develop分支创建一个Release分支，完成Release分支后合并到Master和Develop分支</li>
+<li>Hotfix分支（紧急Bug发布） 在Production发现新Bug时，需要创建一个Hotfix，完成Hotfix后合并回Master和Develop分支，所以Hotfix的改动会进入下一个Release</li>
+</ol>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><ol>
+<li><p>初始化Git</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将文件添加到暂存区域</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 把某文件添加到暂存区</span></span><br><span class="line">$ git add 文件名称  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 把新增、修改的加到暂存区</span></span><br><span class="line">$ git add . </span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加所有修改、已删除的文件到暂存区中</span></span><br><span class="line">$ git add -u [&lt;文件路径&gt;]</span><br><span class="line">$ git add --update [&lt;文件路径&gt;]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加所有修改、已删除、新增的文件到暂存区中，省略 &lt;文件路径&gt; 即为当前目录</span></span><br><span class="line">$ git add -A [&lt;文件路径&gt;]</span><br><span class="line">$ git add --all [&lt;文件路径&gt;]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看所有修改、已删除但没有提交的文件，进入一个子命令系统</span></span><br><span class="line">$ git add -i [&lt;文件路径&gt;]</span><br><span class="line">$ git add --interactive [&lt;文件路径&gt;]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将文件提交到本地仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m <span class="string">"版本描述"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改上次提交的描述信息</span></span><br><span class="line">$ git commit --amend</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加暂存区并提交</p>
+<p>-a 表示add</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment"># 一步完成提交</span></span><br><span class="line">$ git commit -am <span class="string">"说明"</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="5">
+<li><p>查看当前版本状态（查看是否有未提交的文件）</p>
+<p>On branch 分支名称： 表示当前所在分支</p>
+<p>nothing to commit,working directory clean: 表示工作目录是干净的，没有需要提交的文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git status  </span><br><span class="line">On branch master</span><br><span class="line">Untracked files:</span><br><span class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to include <span class="keyword">in</span> what will be committed)</span><br><span class="line"></span><br><span class="line">        LICENSE(红色)</span><br><span class="line"></span><br><span class="line">nothing added to commit but untracked files present (use <span class="string">"git add"</span> to track)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拉取远程仓库的项目</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> 目标地址</span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/thePri/ns.github.io.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>撤销</p>
+<p>当发现commit的内容有错误的时候有两种处理方法：</p>
+<ol>
+<li>修改错误内容再commit一次，但是会留下commit记录</li>
+<li>使用git reset命令撤销这一次错误的commit</li>
+</ol>
+<p>reset有三个模式：</p>
+<p>–head 重置工作区域和暂存区域，也就是说之前没有commit的内容直接擦掉恢复到上一次commit的时候</p>
+<p>–soft 重置工作区域，只是将索引指向重置，暂存区还有本次修改的东西，所以会造成新的差异</p>
+<p>不加参数(mixed) 保留工作区域，清空暂存区域，也就是说工作目录跟暂存区域强行合并了一次，有差异也会放进工作目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看git的日志信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输出log</span></span><br><span class="line">$ git <span class="built_in">log</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 简化git日志输出格式</span></span><br><span class="line">$ git <span class="built_in">log</span> oneline </span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制分支图</span></span><br><span class="line">$ git <span class="built_in">log</span> --oneline --decorate --graph --all</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将远程主机的最新内容拉到本地</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将远程最新内容拉到本地，不进行合并</span></span><br><span class="line">$ git fetch origin master </span><br><span class="line"></span><br><span class="line"><span class="comment"># 将远程主机的master分支最新内容拉取到本地当前分支直接合并</span></span><br><span class="line">$ git pull origin master:&lt;本地分支名&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>分支(branch)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建分支</span></span><br><span class="line">$ git branch 分支名称</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改分支名称</span></span><br><span class="line"><span class="comment"># 如果不指定原分支名称则为当前所在分支</span></span><br><span class="line">$ git branch -m [&lt;原分支名称&gt;] &lt;新的分支名称&gt;</span><br><span class="line"><span class="comment"># 强制修改分支名称</span></span><br><span class="line">$ git branch -M [&lt;原分支名称&gt;] &lt;新的分支名称&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出本地的所有分支，当前所在分支以 "*" 标出</span></span><br><span class="line">$ git branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出本地的所有分支并显示最后一次提交，当前所在分支以 "*" 标出</span></span><br><span class="line">$ git branch -v</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>切换分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout 分支名称</span><br><span class="line"></span><br><span class="line"><span class="comment"># 适用于切换分支的时候将当前分支内容打包带走，同步到切换的分支下</span></span><br><span class="line"><span class="comment"># 这个命令有两个注意点，1. 两个分支内容不同会造成冲突  2. 切换到新的分支后当前分支修改的内容就丢失了</span></span><br><span class="line">$ git checkout --merge &lt;分支名称&gt;  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 主要要用来比较两个分支之间的差异内容</span></span><br><span class="line">$ git checkout -p &lt;分支名称&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建并切换分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果有同名分支则会报错</span></span><br><span class="line">$ git checkout -b 分支名称 </span><br><span class="line"></span><br><span class="line"><span class="comment"># -B 强制创建，有同名直接覆盖</span></span><br><span class="line">$ git checkout -B 分支名称 </span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果当前分支累计了N次提交，这个命令会创建一个新的分支有N次提交的内容但是没有提交记录</span></span><br><span class="line">$ git checkout -orphan &lt;分支名称&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 同时删除工作区域和暂存区文件</span></span><br><span class="line">$ git rm </span><br><span class="line"></span><br><span class="line"><span class="comment"># 只删除暂存区，只是想要某文件不被版本控制</span></span><br><span class="line">$ git rm --cached</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重命名文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git mv 旧文件名称 新文件名称</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 合并需要切换到master上</span></span><br><span class="line">$ git merge</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果未合并会有问题</span></span><br><span class="line">$ git branch -d 分支名称 </span><br><span class="line"></span><br><span class="line"><span class="comment"># 强制删除</span></span><br><span class="line">$ git branch -D 分支名称</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>操作远程库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出已经存在的远程仓库</span></span><br><span class="line">$ git remote</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出远程仓库的详细信息，在别名后面列出URL地址</span></span><br><span class="line">$ git remote -v</span><br><span class="line">$ git remote --verbose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加远程仓库</span></span><br><span class="line">$ git remote add &lt;远程仓库的别名&gt; &lt;远程仓库的URL地址&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改远程仓库的别名</span></span><br><span class="line">$ git remote rename &lt;原远程仓库的别名&gt; &lt;新的别名&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除指定名称的远程仓库</span></span><br><span class="line">$ git remote remove &lt;远程仓库的别名&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改远程仓库的 URL 地址</span></span><br><span class="line">$ git remote <span class="built_in">set</span>-url &lt;远程仓库的别名&gt; &lt;新的远程仓库URL地址&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将已经提交的记录合并到当前分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git cherry-pick &lt;commit id&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从远程仓库获取最新的版本到本地</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将远程仓库所有分支的最新版本全部取回到本地</span></span><br><span class="line">$ git fetch &lt;远程仓库的别名&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将远程仓库指定分支的最新版本取回到本地</span></span><br><span class="line">$ git fetch &lt;远程主机名&gt; &lt;分支名&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>比较版本之间的差异</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 比较当前文件和暂存区中文件的差异，显示没有暂存起来的更改</span></span><br><span class="line">$ git diff</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较暂存区中的文件和上次提交时的差异</span></span><br><span class="line">$ git diff --cached</span><br><span class="line">$ git diff --staged</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较当前文件和上次提交时的差异</span></span><br><span class="line">$ git diff HEAD</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看从指定的版本之后改动的内容</span></span><br><span class="line">$ git diff &lt;commit ID&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比较两个分支之间的差异</span></span><br><span class="line">$ git diff &lt;分支名称&gt; &lt;分支名称&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看两个分支分开后各自的改动内容</span></span><br><span class="line">$ git diff &lt;分支名称&gt;...&lt;分支名称&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用git diff的时候可能会出现中文乱码的问题，需要设置编码格式</span></span><br><span class="line"><span class="comment"># git diff 快照版本号 快照版本号 可以对比两个历史快照</span></span><br><span class="line">$ git config --global i18n.commitencoding utf-8</span><br><span class="line">$ git config --global i18n.logoutputencoding utf-8</span><br><span class="line">$ <span class="built_in">set</span> LESSCHARSET=utf-8</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="21">
+<li><p>还原提交记录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重置暂存区，但文件不受影响</span></span><br><span class="line"><span class="comment"># 相当于将用 "git add" 命令更新到暂存区的内容撤出暂存区，可以指定文件</span></span><br><span class="line"><span class="comment"># 没有指定 commit ID 则默认为当前 HEAD</span></span><br><span class="line">$ git reset [&lt;文件路径&gt;]</span><br><span class="line">$ git reset --mixed [&lt;文件路径&gt;]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 HEAD 的指向改变，撤销到指定的提交记录，文件未修改</span></span><br><span class="line">$ git reset &lt;commit ID&gt;</span><br><span class="line">$ git reset --mixed &lt;commit ID&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 HEAD 的指向改变，撤销到指定的提交记录，文件未修改</span></span><br><span class="line"><span class="comment"># 相当于调用 "git reset --mixed" 命令后又做了一次 "git add"</span></span><br><span class="line">$ git reset --soft &lt;commit ID&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 HEAD 的指向改变，撤销到指定的提交记录，文件也修改了</span></span><br><span class="line">$ git reset --hard &lt;commit ID&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成新的提交来撤销某次提交</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git revert &lt;commit id&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>让git忽略某后缀的文件，不再识别</p>
+<p>在工作目录创建一个.gitignore文件,完了再执行git status ,发现指定后缀已经不跟踪状态了。后续要是有不需要跟踪的文件可以再.gitignore里面直接添加该文件的名称</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> *.后缀 &gt; .gitignore</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        Donate
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://thepri.github.io/2020/08/02/Git%E5%AD%A6%E4%B9%A0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/08/13/Oracle-PLSQL%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Oracle PLSQL执行计划学习记录
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/08/02/%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E3%80%81zip%E3%80%81unzip/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">共享存储服务搭建、zip、unzip</div>
+      </a>
+    
+  </nav>
+
+  
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2021
+        <i class="ri-heart-fill heart_icon"></i> zelong
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="zelong"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">图片</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://pic.downk.cc/item/5f222cce14195aa594e56c37.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://pic.downk.cc/item/5f222e7b14195aa594e63794.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+  </div>
+</body>
+
+</html>

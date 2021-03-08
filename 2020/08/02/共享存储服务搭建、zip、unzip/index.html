@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    共享存储服务搭建、zip、unzip |  zelong
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="zelong" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-共享存储服务搭建、zip、unzip"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  共享存储服务搭建、zip、unzip
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/08/02/%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E3%80%81zip%E3%80%81unzip/" class="article-date">
+  <time datetime="2020-08-02T04:54:04.000Z" itemprop="datePublished">2020-08-02</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Git/">Git</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">791</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">4 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="安装zip和unzip"><a href="#安装zip和unzip" class="headerlink" title="安装zip和unzip"></a>安装zip和unzip</h2><ol>
+<li><p>查看系统版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ /]<span class="comment"># lsb_release -a</span></span><br><span class="line">LSB Version:	:core-4.1-amd64:core-4.1-noarch</span><br><span class="line">Distributor ID:	CentOS</span><br><span class="line">Description:	CentOS Linux release 7.6.1810 (Core) </span><br><span class="line">Release:	7.6.1810</span><br><span class="line">Codename:	Core</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+</li>
+<li><p>下载zip、unzip的rpm包，下载地址<a href="http://www.rpmfind.net/linux/rpm2html/search.php?query=zip(x86-64)" target="_blank" rel="noopener">zip、unzip下载</a></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210104103801146.png" alt="image-20210104103801146"></p>
+</li>
+<li><p>将压缩包传到Linux服务器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ unzip]<span class="comment"># ls</span></span><br><span class="line">unzip-6.0-21.el7.x86_64.rpm</span><br><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ zip]<span class="comment"># ls</span></span><br><span class="line">zip-3.0-11.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装zip</p>
+<p>–force: 强制执行</p>
+<p>–nodeps: 不查找依赖关系</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ zip]<span class="comment"># rpm -ivh zip-3.0-11.el7.x86_64.rpm --force --nodeps</span></span><br><span class="line">Preparing...                          <span class="comment">################################# [100%]</span></span><br><span class="line">Updating / installing...</span><br><span class="line">   1:zip-3.0-11.el7                   <span class="comment">################################# [100%]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装unzip</p>
+<p>–force: 强制执行</p>
+<p>–nodeps: 不查找依赖关系</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ unzip]<span class="comment"># rpm -ivh unzip-6.0-21.el7.x86_64.rpm --force --nodeps</span></span><br><span class="line">Preparing...                          <span class="comment">################################# [100%]</span></span><br><span class="line">Updating / installing...</span><br><span class="line">   1:unzip-6.0-21.el7                 <span class="comment">################################# [100%]</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="安装nfs共享存储"><a href="#安装nfs共享存储" class="headerlink" title="安装nfs共享存储"></a>安装nfs共享存储</h2><ol>
+<li><p>下载nfs所需的rpm包<a href="https://pan.baidu.com/s/1wffIKrKoJUiP-RhnghzHrg" target="_blank" rel="noopener">下载</a> 提取码：jh3b</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##有网的话可以直接下载</span></span><br><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ nfs]<span class="comment"># yum -y install nfs-utils --downloadonly --downloaddir /home/nfs</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将rpm包上传至服务器</p>
+</li>
+<li><p>安装nfs</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ nfs]<span class="comment"># rpm -ivh *.rpm --force --nodeps</span></span><br><span class="line">Preparing...                          <span class="comment">################################# [100%]</span></span><br><span class="line">Updating / installing...</span><br><span class="line">   1:libtirpc-0.2.4-0.15.el7          <span class="comment">################################# [  6%]</span></span><br><span class="line">   2:rpcbind-0.2.0-47.el7             <span class="comment">################################# [ 13%]</span></span><br><span class="line">   3:libref_array-0.1.5-32.el7        <span class="comment">################################# [ 19%]</span></span><br><span class="line">   4:libevent-2.0.21-4.el7            <span class="comment">################################# [ 25%]</span></span><br><span class="line">   5:libcollection-0.7.0-32.el7       <span class="comment">################################# [ 31%]</span></span><br><span class="line">   6:libbasicobjects-0.1.1-32.el7     <span class="comment">################################# [ 38%]</span></span><br><span class="line">   7:libverto-libevent-0.2.5-4.el7    <span class="comment">################################# [ 44%]</span></span><br><span class="line">   8:tcp_wrappers-7.6-77.el7          <span class="comment">################################# [ 50%]</span></span><br><span class="line">   9:quota-nls-1:4.01-17.el7          <span class="comment">################################# [ 56%]</span></span><br><span class="line">  10:quota-1:4.01-17.el7              <span class="comment">################################# [ 63%]</span></span><br><span class="line">  11:libpath_utils-0.2.1-32.el7       <span class="comment">################################# [ 69%]</span></span><br><span class="line">  12:libini_config-1.3.1-32.el7       <span class="comment">################################# [ 75%]</span></span><br><span class="line">  13:gssproxy-0.7.0-21.el7            <span class="comment">################################# [ 81%]</span></span><br><span class="line">  14:libnfsidmap-0.25-19.el7          <span class="comment">################################# [ 88%]</span></span><br><span class="line">  15:keyutils-1.5.8-3.el7             <span class="comment">################################# [ 94%]</span></span><br><span class="line">  16:nfs-utils-1:1.3.0-0.61.el7       <span class="comment">################################# [100%]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>nfs配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##修改配置文件</span></span><br><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ /]<span class="comment"># vi /etc/exports</span></span><br><span class="line"><span class="comment">##添加一下配置，指定客户端的ip地址</span></span><br><span class="line">/nfs 101.201.126.203(rw,insecure，no_root_squash,no_all_squash,sync)</span><br><span class="line"><span class="comment">## 加载配置文件</span></span><br><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ /]<span class="comment"># exportfs -arv</span></span><br><span class="line">exporting 101.201.126.203:/nfs</span><br><span class="line">exporting 101.201.126.203:/nfs to kernel</span><br><span class="line">exportfs: 101.201.126.203:/nfs: Function not implemented</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置开机启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ /]<span class="comment"># systemctl enable rpcbind.service</span></span><br><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ /]<span class="comment"># systemctl enable nfs-server.service</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动相关服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ /]<span class="comment"># systemctl start rpcbind.service</span></span><br><span class="line">[root@iZ2zehazvy0emyfm6ab6wuZ /]<span class="comment"># systemctl start nfs-server.service</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>固定服务端端口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 编辑/etc/sysconfig/nfs文件</span></span><br><span class="line">[root@iZ2ze3yx4q3vgjwkhogur6Z ~]<span class="comment"># vim /etc/sysconfig/nfs</span></span><br><span class="line"><span class="comment">##新增一下配置：</span></span><br><span class="line">RQUOTAD_port=1001</span><br><span class="line">LOCKD_TCPPORT=30001</span><br><span class="line">LOCKD_UDPPORT=30002</span><br><span class="line">MOUNTD_PORT=1002</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>防火墙开放相应端口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 开放端口</span></span><br><span class="line">[root@iZ2ze3yx4q3vgjwkhogur6Z ~]<span class="comment"># firewall-cmd --zone=public --add-port=111/tcp --add-port=111/udp --add-port=2049/tcp --add-port=2049/udp --add-port=1001/tcp --add-port=1001/udp --add-port=1002/tcp --add-port=1002/udp --add-port=30001/tcp --add-port=30002/udp --permanent</span></span><br><span class="line"><span class="comment">## 重新加载</span></span><br><span class="line">[root@iZ2ze3yx4q3vgjwkhogur6Z ~]<span class="comment"># firewall-cmd --reload</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>阿里服务器需要到控制台开放端口</p>
+</li>
+<li><p>将nfs的rpm文件上传至客户端</p>
+</li>
+<li><p>客户端安装nfs</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ2ze3yx4q3vgjwkhogur6Z ~]<span class="comment"># rpm -ivh *.rpm --force --nodeps</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>客户端查看服务端共享文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ2ze3yx4q3vgjwkhogur6Z ~]<span class="comment"># showmount -e 39.102.99.229</span></span><br><span class="line">Export list <span class="keyword">for</span> 39.102.99.229:</span><br><span class="line">/nfs 101.201.126.203</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>挂载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ2ze3yx4q3vgjwkhogur6Z ~]<span class="comment"># mount -t nfs -o nolock,nfsvers=3,vers=3 -o proto=tcp 39.102.99.229:/nfs /nfs</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置开机自动挂载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 编辑vim /etc/rc.d/rc.local ，在最后一行新增：</span></span><br><span class="line">mount -t nfs -o nolock,nfsvers=3,vers=3 -o proto=tcp 39.102.99.229:/nfs /nfs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看挂载情况</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ2ze3yx4q3vgjwkhogur6Z ~]<span class="comment"># mount | grep nfs</span></span><br><span class="line">sunrpc on /var/lib/nfs/rpc_pipefs <span class="built_in">type</span> rpc_pipefs (rw,relatime)</span><br><span class="line">nfsd on /proc/fs/nfsd <span class="built_in">type</span> nfsd (rw,relatime)</span><br><span class="line">39.102.99.229:/nfs on /nfs <span class="built_in">type</span> nfs (rw,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,nolock,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=39.102.99.229,mountvers=3,mountport=1002,mountproto=tcp,local_lock=all,addr=39.102.99.229)</span><br></pre></td></tr></table></figure></li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        Donate
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://thepri.github.io/2020/08/02/%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E3%80%81zip%E3%80%81unzip/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/08/02/Git%E5%AD%A6%E4%B9%A0/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Git学习
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/07/30/Win10%E5%AE%89%E8%A3%85weblogic/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Win10安装weblogic 10.3.6</div>
+      </a>
+    
+  </nav>
+
+  
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2021
+        <i class="ri-heart-fill heart_icon"></i> zelong
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="zelong"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">图片</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://pic.downk.cc/item/5f222cce14195aa594e56c37.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://pic.downk.cc/item/5f222e7b14195aa594e63794.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+  </div>
+</body>
+
+</html>
